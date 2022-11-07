@@ -58,9 +58,13 @@ public class XWingRegistrationPanel implements RegistrationPanel {
 
 		if(factionCombo == null){
 			factionCombo = new JComboBox<XWingPlayer.Faction>();
+			factionCombo.addItem(Faction.FIRST_ORDER);
 			factionCombo.addItem(Faction.IMPERIAL);
+			factionCombo.addItem(Faction.REPUBLIC);
 			factionCombo.addItem(Faction.REBEL);
+			factionCombo.addItem(Faction.RESISTANCE);
 			factionCombo.addItem(Faction.SCUM);
+			factionCombo.addItem(Faction.SEPARATIST);
 			factionCombo.setSelectedIndex(-1);
 		}
 		
