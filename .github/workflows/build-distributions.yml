@@ -1,6 +1,10 @@
 name: build distributions
 run-name: ${{ github.actor }} is building
-on: [push]
+on:
+  push:
+    branches:
+      - main
+      - develop
 jobs:
   linux:
     runs-on: ubuntu-22.04
