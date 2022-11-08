@@ -37,6 +37,8 @@ jobs:
         run: jlink --no-header-files --compress=2 --strip-debug --add-modules ALL-MODULE-PATH --output target/JRE
       - name: jpackage
         run: jpackage --type msi --input target/ --main-jar cryodex-4.0.6-SNAPSHOT.jar --icon src/main/resources/cryodex/widget/logo2.jpg --main-class cryodex.Main --runtime-image target/JRE/ --name cryodex
+      - name: dir
+        run: dir
       - name: publish
         uses: actions/upload-artifact@v3
         with:
@@ -57,6 +59,8 @@ jobs:
         run: jlink --no-header-files --compress=2 --strip-debug --add-modules ALL-MODULE-PATH --output target/JRE
       - name: jpackage
         run: jpackage --type dmg --input target/ --main-jar cryodex-4.0.6-SNAPSHOT.jar --icon src/main/resources/cryodex/widget/logo2.jpg --main-class cryodex.Main --runtime-image target/JRE/ --name cryodex
+      - name: dir
+        run: ls
       - name: publish
         uses: actions/upload-artifact@v3
         with:
