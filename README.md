@@ -1,4 +1,4 @@
-# Project Name
+# Piecepaper's Cryodex
 
 Cryodex is an open source X-Wing, Imperial Assault, and Armada tournament management software.
 It follows and implements the guidelines as described by the Fantasy Flight Tournament Rules for
@@ -6,16 +6,10 @@ each of these games.
 
 ## Installation
 
-To install and run Cryodex, you need the following software:
-
-1. A Java Runtime, Java 7 or higher.
-2. The Cyrodex.jar file, as of this writing Cryodex 4.0.5 is available.
-
-To run Cyrodex.
-
-1. Copy the Jar to a Directory on your hard drive.
-2. If using a file browser, Double Click the JAR file and it should launch.
-3. Alternatively from the command prompt:  java -jar Cyrodex.jar
+1. Visit the releases page
+2. Download the installer for your desktop operating system.
+3. Double click and install the application.
+4. Start
 
 
 ## Contributing
@@ -30,20 +24,16 @@ To run Cyrodex.
 
 Maven can be used to build cryodex.  The Maven Wrapper has been provided for convience.
 
-    ./mvnw clean install
+    ./mvn clean install
     
 This will build the Cryodex jar from the latest source, you will find the output in the target directory.
 
-### Running Cryodex
+With Jpackage you can create a distribution that doesn't require JRE.
 
-Maven can be used to run Cryodex as well. The Maven Wrapper has been provided for convenience.
-
-    ./mvnw package -Prun
-    
-This will build Cryodex and then run it.
+    ./sh build.sh
 
 ## History
-
+1. 07.Nov.2022 forked and re-released
 
 ## Credits
 
