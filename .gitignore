@@ -50,3 +50,4 @@ target
 .idea
 *.class
 *.class
+.settings
