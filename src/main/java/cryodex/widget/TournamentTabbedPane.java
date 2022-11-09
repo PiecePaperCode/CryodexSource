@@ -1,35 +1,30 @@
 package cryodex.widget;
 
-import java.awt.Component;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.Icon;
-import javax.swing.JLabel;
-import javax.swing.JTabbedPane;
-import javax.swing.SwingConstants;
-
 import cryodex.MenuBar;
+import javafx.scene.Node;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.input.MouseEvent;
 
-@SuppressWarnings("serial")
-public class TournamentTabbedPane extends JTabbedPane {
+public class TournamentTabbedPane {
+	private final TabPane tabPane;
 
-	@Override
-	public void addTab(String arg0, Icon arg1, Component arg2) {
-		super.addTab(arg0, arg1, arg2);
-		addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				MenuBar.getInstance().resetMenuBar();
-			}
-		});
+	public TournamentTabbedPane() {
+		this.tabPane = new TabPane();
+	}
 
-		JLabel lbl = new JLabel(arg0);
-		lbl.setIcon(arg1);
+	public TabPane getTabPane() {
+		return this.tabPane;
+	}
 
-		lbl.setIconTextGap(5);
-		lbl.setHorizontalTextPosition(SwingConstants.RIGHT);
-
-		setTabComponentAt(getTabCount() - 1, lbl);
+	public void addTab(String title, Node node) {
+		Tab tab = new Tab();
+		tab.setText(title);
+		tab.setContent(node);
+		tabPane.getTabs().add(tab);
+		tabPane.addEventFilter(
+			MouseEvent.MOUSE_CLICKED,
+			mouseEvent -> MenuBar.getInstance().resetMenuBar()
+		);
 	}
 }

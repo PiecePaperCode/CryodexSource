@@ -1,16 +1,17 @@
 package cryodex;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.util.Objects;
-
-import javax.swing.*;
-import javax.swing.UIManager.LookAndFeelInfo;
-
 import cryodex.widget.RegisterPanel;
 import cryodex.widget.SplashPanel;
 import cryodex.widget.TournamentTabbedPane;
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.TabPane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 /**
  * Main class that creates a singleton of the GUI which everything else is built
@@ -19,11 +20,9 @@ import cryodex.widget.TournamentTabbedPane;
  * @author cbrown
  * 
  */
-public class Main extends JFrame {
+public class Main extends Application {
 
 	public static final long delay = 3000;
-
-	private static final long serialVersionUID = 1L;
 
 	private static Main instance = null;
 
@@ -32,10 +31,6 @@ public class Main extends JFrame {
 
 			instance = new Main();
 			instance.setSize(400, 720);
-			ImageIcon icon = new ImageIcon(
-				Main.class.getResource("icon.png")
-			);
-			instance.setIconImage(icon.getImage());
 
 			CryodexController.loadData();
 			instance.getRegisterPanel().addPlayers(
@@ -48,43 +43,31 @@ public class Main extends JFrame {
 		return instance;
 	}
 
-	private JPanel contentPane;
-	private JPanel registerPane;
+	private BorderPane contentPane;
+	private BorderPane registerPane;
 	private RegisterPanel registerPanel;
-	private TournamentTabbedPane multipleTournamentTabbedPane;
-	private JPanel tournamentPane;
-	private JPanel singleTournamentPane;
-	private JPanel warningPane;
-	private JLabel warningLabel;
+	private TabPane multipleTournamentTabbedPane;
+	private BorderPane tournamentPane;
+	private BorderPane singleTournamentPane;
+	private Pane warningPane;
+	private Label warningLabel;
 
-	private Main() {
-
-		super("Piecepaper's Cryodex - Version 4.3.3");
-		try {
-			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-				if ("Nimbus".equals(info.getName())) {
-					UIManager.setLookAndFeel(info.getClassName());
-					break;
-				}
-			}
-			Thread.sleep(delay - 1000);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		getContentFlowPane().add(getWarningPane(), BorderLayout.SOUTH);
-		getContentFlowPane().add(getRegisterPane(), BorderLayout.WEST);
-		getContentFlowPane().add(getTournamentPane(), BorderLayout.CENTER);
-
-		this.add(getContentFlowPane());
-		registerPanel.registerButton();
-
-		this.setJMenuBar(MenuBar.getInstance());
+	@Override
+	public void start(Stage stage) {
+		new SplashPanel();
+		stage.setTitle("Piecepaper's Cryodex - Version 4.3.3");
+		BorderPane root = new BorderPane();
+		root.setTop(MenuBar.getInstance());
+		root.setBottom(getWarningPane());
+		root.setLeft(getRegisterPane());
+		root.setCenter(getTournamentPane());
+		stage.setScene(new Scene(root, 400, 720));
+		stage.show();
 	}
 
-	public JPanel getContentFlowPane() {
+	public BorderPane getContentFlowPane() {
 		if (contentPane == null) {
-			contentPane = new JPanel(new BorderLayout());
+			contentPane = new BorderPane();
 		}
 		return contentPane;
 	}
@@ -96,63 +79,66 @@ public class Main extends JFrame {
 		return registerPanel;
 	}
 
-	public JPanel getRegisterPane() {
+	public BorderPane getRegisterPane() {
 		if (registerPane == null) {
-			registerPane = new JPanel(new BorderLayout());
-			registerPane.add(getRegisterPanel(), BorderLayout.CENTER);
+			registerPane = new BorderPane();
+			registerPane.setCenter(getRegisterPane());
 		}
 		return registerPane;
 	}
 
-	public JPanel getTournamentPane() {
+	public BorderPane getTournamentPane() {
 		if (tournamentPane == null) {
-			tournamentPane = new JPanel(new BorderLayout());
+			tournamentPane = new BorderPane();
 		}
-
 		return tournamentPane;
 	}
 
-	public JPanel getSingleTournamentPane() {
+	public BorderPane getSingleTournamentPane() {
 		if (singleTournamentPane == null) {
-			singleTournamentPane = new JPanel(new BorderLayout());
+			singleTournamentPane = new BorderPane();
 		}
-
 		return singleTournamentPane;
 	}
 
-	public JTabbedPane getMultipleTournamentTabbedPane() {
+	public TabPane getMultipleTournamentTabbedPane() {
 		if (multipleTournamentTabbedPane == null) {
-			multipleTournamentTabbedPane = new TournamentTabbedPane();
+			multipleTournamentTabbedPane = new TournamentTabbedPane().getTabPane();
 		}
 		return multipleTournamentTabbedPane;
 	}
 
 	public void setMultiple(boolean isMultiple) {
 
-		getTournamentPane().removeAll();
+		getTournamentPane().getChildren().removeAll();
 
 		if (isMultiple) {
-			getTournamentPane().add(getMultipleTournamentTabbedPane(),
-					BorderLayout.CENTER);
+			getTournamentPane().setCenter(getMultipleTournamentTabbedPane());
 		} else {
-			getTournamentPane().add(getSingleTournamentPane(),
-					BorderLayout.CENTER);
+			getTournamentPane().setCenter(getSingleTournamentPane());
 		}
 
-		getTournamentPane().validate();
-		getTournamentPane().repaint();
+		// getTournamentPane().validate();
+		// getTournamentPane().repaint();
 	}
 	
-	public JPanel getWarningPane() {
+	public Pane getWarningPane() {
 		if(warningPane == null){
-			warningPane = new JPanel();
+			warningPane = new Pane();
 			warningPane.setVisible(false);
-			warningLabel = new JLabel();
-			warningPane.add(warningLabel);
-			
-			warningPane.setBackground(Color.orange);
-			warningLabel.setBackground(Color.orange);
-			Font font = new Font("Courier", Font.BOLD,15);
+			warningLabel = new Label();
+			warningPane.getChildren().add(warningLabel);
+
+			warningLabel.setBackground(
+				new Background(
+					new BackgroundFill(
+						Color.ORANGE,
+						CornerRadii.EMPTY,
+						Insets.EMPTY
+					)
+				)
+			);
+			Font font = new Font("Courier",15);
 			warningLabel.setFont(font);
 		}
 		
@@ -169,10 +155,5 @@ public class Main extends JFrame {
 		}
 	}
 
-	public static void main(String[] args) {
-		new SplashPanel();
-
-		Main.getInstance().setVisible(true);
-		Main.getInstance().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+	public void setSize(int width, int height) {}
 }

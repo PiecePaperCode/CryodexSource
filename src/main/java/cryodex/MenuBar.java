@@ -1,31 +1,20 @@
 package cryodex;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.io.File;
-
-import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-
 import cryodex.CryodexController.Modules;
 import cryodex.modules.Module;
 import cryodex.widget.AboutPanel;
+import javafx.scene.control.CheckMenuItem;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 
-public class MenuBar extends JMenuBar {
+public class MenuBar {
+	private Menu fileMenu;
+	private Menu viewMenu;
+	private Menu helpMenu;
 
-	private static final long serialVersionUID = 1L;
-
-	private JMenu fileMenu;
-	private JMenu viewMenu;
-	private JMenu helpMenu;
-
-	private JCheckBoxMenuItem showTableNumbers;
-	private JCheckBoxMenuItem showQuickFind;
+	private CheckMenuItem showTableNumbers;
+	private CheckMenuItem showQuickFind;
 
 	private static MenuBar instance;
 
@@ -49,12 +38,12 @@ public class MenuBar extends JMenuBar {
 		this.add(getHelpMenu());
 	}
 
-	public JMenu getFileMenu() {
+	public Menu getFileMenu() {
 		if (fileMenu == null) {
-			fileMenu = new JMenu("File");
-			fileMenu.setMnemonic('F');
+			fileMenu = new Menu("File");
+			// fileMenu.setMnemonic('F');
 
-			JMenuItem importPlayers = new JMenuItem("Import Players");
+			MenuItem importPlayers = new MenuItem("Import Players");
 			importPlayers.addActionListener(new ActionListener() {
 
 				@Override
