@@ -1,5 +1,7 @@
 # Piecepaper's Cryodex
 
+<img width="100" src="./src/main/resources/cryodex/icon.png" alt="logo">
+
 Cryodex is an open source X-Wing, Imperial Assault, and Armada tournament management software.
 It follows and implements the guidelines as described by the Fantasy Flight Tournament Rules for
 each of these games.

@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
+import java.util.Objects;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -49,18 +50,23 @@ public class SplashPanel extends JWindow {
 		content.setBackground(Color.black);
 
 		// Set the window's bounds, centering the window
-		int width = 500;
-		int height = 400;
+		int width = 600;
+		int height = 500;
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 		int x = (screen.width - width) / 2;
 		int y = (screen.height - height) / 2;
 		setBounds(x, y, width, height);
 
 		// Build the splash screen
-		JLabel ardvark = new JLabel(new ImageIcon(getClass().getResource(
-				"logo2.jpg")));
+		JLabel ardvark = new JLabel(
+			new ImageIcon(Objects.requireNonNull(
+					getClass().getResource("logo.png")
+			))
+		);
 
-		ImageIcon wait = new ImageIcon(getClass().getResource("wait.gif"));
+		ImageIcon wait = new ImageIcon(
+			Objects.requireNonNull(getClass().getResource("wait.gif"))
+		);
 
 		content.add(ardvark, BorderLayout.CENTER);
 		content.add(new JLabel(wait), BorderLayout.SOUTH);

@@ -3,12 +3,9 @@ package cryodex;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.util.Objects;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.UIManager.LookAndFeelInfo;
 
 import cryodex.widget.RegisterPanel;
@@ -34,7 +31,11 @@ public class Main extends JFrame {
 		if (instance == null) {
 
 			instance = new Main();
-			instance.setSize(300, 700);
+			instance.setSize(400, 720);
+			ImageIcon icon = new ImageIcon(
+				Main.class.getResource("icon.png")
+			);
+			instance.setIconImage(icon.getImage());
 
 			CryodexController.loadData();
 			instance.getRegisterPanel().addPlayers(
@@ -58,7 +59,7 @@ public class Main extends JFrame {
 
 	private Main() {
 
-		super("Cryodex - Version 4.3.3");
+		super("Piecepaper's Cryodex - Version 4.3.3");
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 				if ("Nimbus".equals(info.getName())) {
