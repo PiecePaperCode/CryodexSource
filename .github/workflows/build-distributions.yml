@@ -20,7 +20,7 @@ jobs:
       - name: jlink
         run: jlink --no-header-files --compress=2 --strip-debug --add-modules ALL-MODULE-PATH --output target/JRE
       - name: jpackage
-        run: jpackage --type deb --input target/ --main-jar cryodex-4.0.6-SNAPSHOT.jar --icon src/main/resources/cryodex/widget/logo2.jpg --main-class cryodex.Main --runtime-image target/JRE/ --linux-shortcut --name cryodex
+        run: jpackage --type deb --input target/ --main-jar cryodex-4.0.6-SNAPSHOT.jar --icon src/main/resources/cryodex/icon.jpg --main-class cryodex.Main --runtime-image target/JRE/ --linux-shortcut --name cryodex
       - name: publish
         uses: actions/upload-artifact@v3
         with:
@@ -40,7 +40,7 @@ jobs:
       - name: jlink
         run: jlink --no-header-files --compress=2 --strip-debug --add-modules ALL-MODULE-PATH --output target/JRE
       - name: jpackage
-        run: jpackage --type msi --input target/ --main-jar cryodex-4.0.6-SNAPSHOT.jar --icon src/main/resources/cryodex/widget/logo2.jpg --main-class cryodex.Main --runtime-image target/JRE/ --name cryodex
+        run: jpackage --type msi --input target/ --main-jar cryodex-4.0.6-SNAPSHOT.jar --icon src/main/resources/cryodex/icon.jpg --main-class cryodex.Main --runtime-image target/JRE/ --name cryodex
       - name: publish
         uses: actions/upload-artifact@v3
         with:
@@ -60,7 +60,7 @@ jobs:
       - name: jlink
         run: jlink --no-header-files --compress=2 --strip-debug --add-modules ALL-MODULE-PATH --output target/JRE
       - name: jpackage
-        run: jpackage --type dmg --input target/ --main-jar cryodex-4.0.6-SNAPSHOT.jar --icon src/main/resources/cryodex/widget/logo2.jpg --main-class cryodex.Main --runtime-image target/JRE/ --name cryodex
+        run: jpackage --type dmg --input target/ --main-jar cryodex-4.0.6-SNAPSHOT.jar --icon src/main/resources/cryodex/icon.jpg --main-class cryodex.Main --runtime-image target/JRE/ --name cryodex
       - name: publish
         uses: actions/upload-artifact@v3
         with:
