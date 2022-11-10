@@ -15,7 +15,6 @@ import cryodex.modules.Tournament;
 import cryodex.modules.armada.ArmadaModule;
 import cryodex.modules.imperialassault.IAModule;
 import cryodex.modules.xwing.XWingModule;
-import cryodex.widget.ComponentUtils;
 import cryodex.xml.XMLUtils;
 import cryodex.xml.XMLUtils.Element;
 import javafx.scene.control.Alert;
