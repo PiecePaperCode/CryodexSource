@@ -23,13 +23,13 @@ import javafx.scene.control.Tab;
 
 public class CryodexController {
 
-	public static enum Modules {
-		XWING("X-Wing", XWingModule.getInstance()), IA("Imperial Assault",
-				IAModule.getInstance()), ARMADA("Armada", ArmadaModule
-				.getInstance());
+	public enum Modules {
+		XWING("X-Wing", XWingModule.getInstance());
+        // IA("Imperial Assault", IAModule.getInstance()),
+        // ARMADA("Armada", ArmadaModule.getInstance());
 
-		Module module;
-		String name;
+		final Module module;
+		final String name;
 
 		private Modules(String name, Module m) {
 			this.module = m;
@@ -94,16 +94,9 @@ public class CryodexController {
 		return modules;
 	}
 
-	public static int getTournamentCount() {
-		if (tournaments == null) {
-			return 0;
-		}
-		return tournaments.size();
-	}
-
 	public static List<Player> getPlayers() {
 		if (players == null) {
-			players = new ArrayList<Player>();
+			players = new ArrayList<>();
 		}
 		return players;
 	}

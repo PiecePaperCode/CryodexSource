@@ -7,7 +7,7 @@ import cryodex.CryodexController;
 import cryodex.CryodexController.Modules;
 import cryodex.MenuBarPane;
 import cryodex.Player;
-import cryodex.modules.Menu;
+import cryodex.modules.MenuInterface;
 import cryodex.modules.Module;
 import cryodex.modules.ModulePlayer;
 import cryodex.modules.RegistrationPanel;
@@ -30,7 +30,7 @@ public class ArmadaModule implements Module {
 
 	private JCheckBoxMenuItem viewMenuItem;
 	private ArmadaRegistrationPanel registrationPanel;
-	private ArmadaMenu menu;
+	private ArmadaMenuInterface menu;
 	private ArmadaOptions options;
 
 	private boolean isEnabled = true;
@@ -40,9 +40,9 @@ public class ArmadaModule implements Module {
 	}
 
 	@Override
-	public Menu getMenu() {
+	public MenuInterface getMenu() {
 		if (menu == null) {
-			menu = new ArmadaMenu();
+			menu = new ArmadaMenuInterface();
 		}
 		return menu;
 	}

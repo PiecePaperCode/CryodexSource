@@ -5,7 +5,6 @@ import cryodex.widget.SplashPanel;
 import cryodex.widget.TournamentTabbedPane;
 import javafx.application.Application;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
@@ -13,8 +12,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
-import java.awt.*;
 
 /**
  * Main class that creates a singleton of the GUI which everything else is built
@@ -46,6 +43,10 @@ public class Main extends Application {
 
 		return instance;
 	}
+
+    public static Stage getStage() {
+        return stage;
+    }
 
 	private BorderPane contentPane;
 	private BorderPane registerPane;

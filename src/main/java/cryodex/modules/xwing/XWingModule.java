@@ -1,13 +1,10 @@
 package cryodex.modules.xwing;
 
-import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JDialog;
-
 import cryodex.CryodexController;
 import cryodex.CryodexController.Modules;
 import cryodex.MenuBarPane;
 import cryodex.Player;
-import cryodex.modules.Menu;
+import cryodex.modules.MenuInterface;
 import cryodex.modules.Module;
 import cryodex.modules.ModulePlayer;
 import cryodex.modules.RegistrationPanel;
@@ -15,6 +12,7 @@ import cryodex.modules.Tournament;
 import cryodex.modules.xwing.XWingTournamentCreationWizard.WizardOptions;
 import cryodex.xml.XMLUtils;
 import cryodex.xml.XMLUtils.Element;
+import javafx.scene.control.CheckMenuItem;
 
 public class XWingModule implements Module {
 
@@ -28,9 +26,9 @@ public class XWingModule implements Module {
 		return module;
 	}
 
-	private JCheckBoxMenuItem viewMenuItem;
+	private CheckMenuItem viewMenuItem;
 	private XWingRegistrationPanel registrationPanel;
-	private XWingMenu menu;
+	private XWingMenuInterface menu;
 	private XWingOptions options;
 
 	private boolean isEnabled = true;
@@ -40,9 +38,9 @@ public class XWingModule implements Module {
 	}
 
 	@Override
-	public Menu getMenu() {
+	public MenuInterface getMenu() {
 		if (menu == null) {
-			menu = new XWingMenu();
+			menu = new XWingMenuInterface();
 		}
 		return menu;
 	}
@@ -69,8 +67,8 @@ public class XWingModule implements Module {
 	}
 
 	public static void createTournament() {
-		JDialog wizard = new XWingTournamentCreationWizard();
-		wizard.setVisible(true);
+		// Dialog wizard = new XWingTournamentCreationWizard();
+		// wizard.setVisible(true);
 
 	}
 
@@ -86,7 +84,7 @@ public class XWingModule implements Module {
 
 		tournament.startTournament();
 
-		MenuBarPane.getInstance().resetMenuBar();
+		MenuBarPane.getInstance().getMenus().removeAll();
 
 		CryodexController.saveData();
 	}
@@ -126,12 +124,12 @@ public class XWingModule implements Module {
 	}
 
 	@Override
-	public JCheckBoxMenuItem getViewMenuItem() {
+	public CheckMenuItem getViewMenuItem() {
 		return viewMenuItem;
 	}
 
-	@Override
-	public void setViewMenuItem(JCheckBoxMenuItem viewMenuItem) {
-		this.viewMenuItem = viewMenuItem;
-	}
+    @Override
+    public void setViewMenuItem(CheckMenuItem viewMenuItem) {
+        this.viewMenuItem = viewMenuItem;
+    }
 }

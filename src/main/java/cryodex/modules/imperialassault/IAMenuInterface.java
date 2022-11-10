@@ -1,18 +1,15 @@
-package cryodex.modules.armada;
+package cryodex.modules.imperialassault;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -25,12 +22,12 @@ import cryodex.CryodexController;
 import cryodex.CryodexController.Modules;
 import cryodex.Main;
 import cryodex.Player;
-import cryodex.modules.Menu;
-import cryodex.modules.armada.export.ArmadaExportController;
+import cryodex.modules.MenuInterface;
+import cryodex.modules.imperialassault.export.IAExportController;
 import cryodex.widget.ComponentUtils;
 
 @SuppressWarnings("serial")
-public class ArmadaMenu implements Menu {
+public class IAMenuInterface implements MenuInterface {
 
 	private JMenu mainMenu;
 
@@ -41,9 +38,6 @@ public class ArmadaMenu implements Menu {
 
 	private JMenuItem deleteTournament;
 
-	private JCheckBoxMenuItem showScore;
-	// private JCheckBoxMenuItem onlyEnterPoints;
-
 	private JMenuItem cutPlayers;
 
 	@Override
@@ -51,8 +45,8 @@ public class ArmadaMenu implements Menu {
 
 		if (mainMenu == null) {
 
-			mainMenu = new JMenu(Modules.ARMADA.getName());
-			mainMenu.setMnemonic('A');
+			mainMenu = new JMenu(Modules.IA.getName());
+			mainMenu.setMnemonic('I');
 
 			JMenuItem createNewTournament = new JMenuItem(
 					"Create New Tournament");
@@ -61,7 +55,7 @@ public class ArmadaMenu implements Menu {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					Main.getInstance().setExtendedState(Frame.MAXIMIZED_BOTH);
-					ArmadaModule.createTournament();
+					IAModule.createTournament();
 				}
 			});
 
@@ -76,7 +70,7 @@ public class ArmadaMenu implements Menu {
 
 			mainMenu.add(createNewTournament);
 			mainMenu.add(deleteTournament);
-			mainMenu.add(getViewMenu());
+			// mainMenu.add(getViewMenu());
 			mainMenu.add(getTournamentMenu());
 			mainMenu.add(getRoundMenu());
 			mainMenu.add(getExportMenu());
@@ -89,30 +83,6 @@ public class ArmadaMenu implements Menu {
 		if (viewMenu == null) {
 			viewMenu = new JMenu("View");
 
-			showScore = new JCheckBoxMenuItem("Show Score Input");
-			showScore.setSelected(true);
-			showScore.addItemListener(new ItemListener() {
-
-				@Override
-				public void itemStateChanged(ItemEvent e) {
-					ArmadaModule.getInstance().getOptions()
-							.setShowScore(showScore.isSelected());
-				}
-			});
-
-			// onlyEnterPoints = new JCheckBoxMenuItem("Only Enter Points");
-			// onlyEnterPoints.setSelected(false);
-			// onlyEnterPoints.addItemListener(new ItemListener() {
-			//
-			// @Override
-			// public void itemStateChanged(ItemEvent e) {
-			// ArmadaModule.getInstance().getOptions()
-			// .setEnterOnlyPoints(onlyEnterPoints.isSelected());
-			// }
-			// });
-
-			viewMenu.add(showScore);
-			// viewMenu.add(onlyEnterPoints);
 		}
 
 		return viewMenu;
@@ -208,7 +178,7 @@ public class ArmadaMenu implements Menu {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 
-					ArmadaTournament tournament = (ArmadaTournament) CryodexController
+					IATournament tournament = (IATournament) CryodexController
 							.getActiveTournament();
 
 					int index = tournament.getTournamentGUI()
@@ -219,7 +189,7 @@ public class ArmadaMenu implements Menu {
 							"Regenerating a round will cancel all results and destroy any subsequent rounds. Are you sure you want to do this?");
 
 					if (result == JOptionPane.OK_OPTION) {
-						ArmadaRound r = tournament.getRound(index);
+						IARound r = tournament.getRound(index);
 						if (r.isSingleElimination()) {
 							int playerCount = r.getMatches().size() * 2;
 							tournament.cancelRound(tournament.getRoundNumber(r));
@@ -244,7 +214,7 @@ public class ArmadaMenu implements Menu {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 
-					ArmadaTournament tournament = (ArmadaTournament) CryodexController
+					IATournament tournament = (IATournament) CryodexController
 							.getActiveTournament();
 
 					int index = tournament.getTournamentGUI()
@@ -278,7 +248,7 @@ public class ArmadaMenu implements Menu {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 
-					ArmadaTournament tournament = (ArmadaTournament) CryodexController
+					IATournament tournament = (IATournament) CryodexController
 							.getActiveTournament();
 
 					if (tournament.getSelectedRound().isComplete()) {
@@ -287,7 +257,7 @@ public class ArmadaMenu implements Menu {
 						return;
 					}
 
-					ArmadaSwapPanel.showSwapPanel();
+					IASwapPanel.showSwapPanel();
 				}
 			});
 
@@ -306,7 +276,7 @@ public class ArmadaMenu implements Menu {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 
-					ArmadaTournament tournament = (ArmadaTournament) CryodexController
+					IATournament tournament = (IATournament) CryodexController
 							.getActiveTournament();
 
 					if (tournament.getLatestRound().isComplete() == false) {
@@ -333,7 +303,7 @@ public class ArmadaMenu implements Menu {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 
-					ArmadaExportController.playerList(CryodexController
+					IAExportController.playerList(CryodexController
 							.getActiveTournament().getPlayers());
 				}
 			});
@@ -344,15 +314,15 @@ public class ArmadaMenu implements Menu {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 
-					ArmadaTournament tournament = (ArmadaTournament) CryodexController
+					IATournament tournament = (IATournament) CryodexController
 							.getActiveTournament();
 
-					ArmadaRound round = tournament.getLatestRound();
+					IARound round = tournament.getLatestRound();
 
 					int roundNumber = round.isSingleElimination() ? 0
 							: tournament.getRoundNumber(round);
 
-					ArmadaExportController.exportMatches(tournament,
+					IAExportController.exportMatches(tournament,
 							round.getMatches(), roundNumber);
 				}
 			});
@@ -362,14 +332,14 @@ public class ArmadaMenu implements Menu {
 
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					ArmadaTournament tournament = (ArmadaTournament) CryodexController
+					IATournament tournament = (IATournament) CryodexController
 							.getActiveTournament();
-					ArmadaRound round = tournament.getLatestRound();
+					IARound round = tournament.getLatestRound();
 
 					int roundNumber = round.isSingleElimination() ? 0
 							: tournament.getRoundNumber(round);
 
-					ArmadaExportController.exportTournamentSlips(tournament,
+					IAExportController.exportTournamentSlips(tournament,
 							round.getMatches(), roundNumber);
 				}
 			});
@@ -380,14 +350,14 @@ public class ArmadaMenu implements Menu {
 
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					ArmadaTournament tournament = (ArmadaTournament) CryodexController
+					IATournament tournament = (IATournament) CryodexController
 							.getActiveTournament();
-					ArmadaRound round = tournament.getLatestRound();
+					IARound round = tournament.getLatestRound();
 
 					int roundNumber = round.isSingleElimination() ? 0
 							: tournament.getRoundNumber(round);
 
-					ArmadaExportController.exportTournamentSlipsWithStats(
+					IAExportController.exportTournamentSlipsWithStats(
 							tournament, round.getMatches(), roundNumber);
 				}
 			});
@@ -397,8 +367,8 @@ public class ArmadaMenu implements Menu {
 
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					ArmadaExportController
-							.exportRankings((ArmadaTournament) CryodexController
+					IAExportController
+							.exportRankings((IATournament) CryodexController
 									.getActiveTournament());
 				}
 			});
@@ -409,16 +379,16 @@ public class ArmadaMenu implements Menu {
 
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					ArmadaExportController
-							.exportTournamentReport((ArmadaTournament) CryodexController
+					IAExportController
+							.exportTournamentReport((IATournament) CryodexController
 									.getActiveTournament());
 				}
 			});
 
 			exportMenu.add(exportPlayerList);
 			exportMenu.add(exportMatches);
-			exportMenu.add(exportMatchSlips);
-			exportMenu.add(exportMatchSlipsWithStats);
+			// exportMenu.add(exportMatchSlips);
+			// exportMenu.add(exportMatchSlipsWithStats);
 			exportMenu.add(exportRankings);
 			exportMenu.add(exportTournamentReport);
 		}
@@ -428,16 +398,16 @@ public class ArmadaMenu implements Menu {
 	@Override
 	public void resetMenuBar() {
 
-		boolean isArmadaTournament = CryodexController.getActiveTournament() != null
-				&& CryodexController.getActiveTournament() instanceof ArmadaTournament;
+		boolean isIATournament = CryodexController.getActiveTournament() != null
+				&& CryodexController.getActiveTournament() instanceof IATournament;
 
-		deleteTournament.setEnabled(isArmadaTournament);
-		getTournamentMenu().setEnabled(isArmadaTournament);
-		getRoundMenu().setEnabled(isArmadaTournament);
-		getExportMenu().setEnabled(isArmadaTournament);
+		deleteTournament.setEnabled(isIATournament);
+		getTournamentMenu().setEnabled(isIATournament);
+		getRoundMenu().setEnabled(isIATournament);
+		getExportMenu().setEnabled(isIATournament);
 
-		if (isArmadaTournament) {
-			boolean isSingleElimination = ((ArmadaTournament) CryodexController
+		if (isIATournament) {
+			boolean isSingleElimination = ((IATournament) CryodexController
 					.getActiveTournament()).getLatestRound()
 					.isSingleElimination();
 			getCutPlayers().setEnabled(!isSingleElimination);

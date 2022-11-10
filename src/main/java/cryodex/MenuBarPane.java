@@ -4,10 +4,7 @@ import java.io.File;
 import cryodex.CryodexController.Modules;
 import cryodex.modules.Module;
 import cryodex.widget.AboutPanel;
-import javafx.scene.control.CheckMenuItem;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
 public class MenuBarPane {
@@ -56,8 +53,8 @@ public class MenuBarPane {
                     MouseEvent -> Main.getInstance().dispose()
 			);
 
-			fileMenu.add(importPlayers);
-			fileMenu.add(exit);
+			fileMenu.getItems().add(importPlayers);
+			fileMenu.getItems().add(exit);
 		}
 
 		return fileMenu;
@@ -99,7 +96,7 @@ public class MenuBarPane {
 					if (showRegistrationPanel.isSelected()) {
 						Main.getInstance().getRegisterPane()
                             .getChildren()
-                            .add(Main.getInstance().getRegisterPanel());
+                            .add(Main.getInstance().getRegisterPanel().getPlayerPanel());
 					}
 
 					Main.getInstance().validate();
@@ -107,18 +104,17 @@ public class MenuBarPane {
 				}
 			);
 
-			viewMenu.add(showQuickFind);
-			viewMenu.add(showTableNumbers);
-			viewMenu.add(showRegistrationPanel);
+			viewMenu.getItems().add(showQuickFind);
+			viewMenu.getItems().add(showTableNumbers);
+			viewMenu.getItems().add(showRegistrationPanel);
 
 			for (final Module m : CryodexController.getModules()) {
-				final JCheckBoxMenuItem moduleItem = new JCheckBoxMenuItem(
+				final CheckMenuItem moduleItem = new CheckMenuItem(
 						Modules.getNameByModule(m));
 				moduleItem.setSelected(m.isModuleEnabled());
-				moduleItem.addItemListener(new ItemListener() {
-
-					@Override
-					public void itemStateChanged(ItemEvent arg0) {
+				moduleItem.addEventHandler(
+                    MouseEvent.MOUSE_CLICKED,
+                    MouseEvent -> {
 						m.setModuleEnabled(moduleItem.isSelected());
 						Modules moduleEnum = Modules.getEnumByName(Modules
 								.getNameByModule(m));
@@ -131,83 +127,70 @@ public class MenuBarPane {
 						}
 						CryodexController.saveData();
 					}
-				});
+				);
 				
 				m.setViewMenuItem(moduleItem);
 
-				viewMenu.add(moduleItem);
+				viewMenu.getItems().add(moduleItem);
 			}
 		}
 
 		return viewMenu;
 	}
 
-	@Override
-	public JMenu getHelpMenu() {
+	public Menu getHelpMenu() {
 		if (helpMenu == null) {
-			helpMenu = new JMenu("Help");
-			helpMenu.setMnemonic('H');
+			helpMenu = new Menu("Help");
+			// helpMenu.setMnemonic('H');
 
-			JMenuItem about = new JMenuItem("About");
-			about.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					AboutPanel.showAboutPanel();
-				}
-			});
-			JMenuItem whereIsSave = new JMenuItem("Where is my save file?");
-			whereIsSave.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
+			MenuItem about = new MenuItem("About");
+			about.addEventHandler(
+                MouseEvent.MOUSE_CLICKED,
+                MouseEvent -> AboutPanel.showAboutPanel()
+			);
+			MenuItem whereIsSave = new MenuItem("Where is my save file?");
+			whereIsSave.addEventHandler(
+                MouseEvent.MOUSE_CLICKED,
+                MouseEvent -> {
 					File path = new File(System.getProperty("user.dir"));
-					if (path.exists() == false) {
+					if (!path.exists()) {
 						System.out.println("Error with user directory");
 					}
 					File file = new File(path, CryodexController.CRYODEX_SAVE);
 
 					if (file.exists()) {
-						JOptionPane.showMessageDialog(
-								Main.getInstance(),
-								"<html>Save file can be found at <b>"
-										+ file.getAbsolutePath()
-										+ "</b></html>");
-					} else if (path.exists() == false) {
-						JOptionPane.showMessageDialog(
-								Main.getInstance(),
-								"Save location could not be determined. Check permissions to allow a Java application to save a file.");
-					} else if (file.exists() == false) {
-						JOptionPane.showMessageDialog(
-								Main.getInstance(),
-								"<html>A save file could not be found. It should be called <b>"+CryodexController.CRYODEX_SAVE+"</b> and should be located in folder <b>"
-										+ path.getAbsolutePath()
-										+ "</b></html>");
+                        new Alert(
+                            Alert.AlertType.INFORMATION,
+                            "Save file can be found at"
+                            + file.getAbsolutePath(),
+                            ButtonType.OK
+                        );
+					} else if (!path.exists()) {
+                        new Alert(
+                            Alert.AlertType.WARNING,
+                            "Save location could not be determined. " +
+                                "Check permissions to allow a Java " +
+                                "application to save a file."
+                            + file.getAbsolutePath(),
+                            ButtonType.OK
+                        );
+					} else if (!file.exists()) {
+                        new Alert(
+                            Alert.AlertType.WARNING,
+                            "A save file could not be found. " +
+                            "It should be called"
+                            +CryodexController.CRYODEX_SAVE +
+                            "</b> and should be located in folder"
+                            + file.getAbsolutePath(),
+                            ButtonType.OK
+                        );
 					}
 				}
-			});
+			);
 
-			helpMenu.add(about);
-			helpMenu.add(whereIsSave);
+			helpMenu.getItems().add(about);
+			helpMenu.getItems().add(whereIsSave);
 		}
 		return helpMenu;
 	}
-
-	public void resetMenuBar() {
-
-		showTableNumbers.setSelected(CryodexController.getOptions()
-				.isShowTableNumbers());
-		showQuickFind.setSelected(CryodexController.getOptions()
-				.isShowQuickFind());
-
-		for (Module m : CryodexController.getModules()) {
-			m.getMenu().resetMenuBar();
-		}
-	}
-
-	public void updateTournamentOptions(CryodexOptions options) {
-		options.setShowTableNumbers(showTableNumbers.isSelected());
-		options.setShowQuickFind(showQuickFind.isSelected());
-	}
-
 }

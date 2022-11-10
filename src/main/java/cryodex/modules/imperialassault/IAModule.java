@@ -7,7 +7,7 @@ import cryodex.CryodexController;
 import cryodex.CryodexController.Modules;
 import cryodex.MenuBarPane;
 import cryodex.Player;
-import cryodex.modules.Menu;
+import cryodex.modules.MenuInterface;
 import cryodex.modules.Module;
 import cryodex.modules.ModulePlayer;
 import cryodex.modules.RegistrationPanel;
@@ -30,7 +30,7 @@ public class IAModule implements Module {
 
 	private JCheckBoxMenuItem viewMenuItem;
 	private IARegistrationPanel registrationPanel;
-	private IAMenu menu;
+	private IAMenuInterface menu;
 	private IAOptions options;
 
 	private boolean isEnabled = true;
@@ -40,9 +40,9 @@ public class IAModule implements Module {
 	}
 
 	@Override
-	public Menu getMenu() {
+	public MenuInterface getMenu() {
 		if (menu == null) {
-			menu = new IAMenu();
+			menu = new IAMenuInterface();
 		}
 		return menu;
 	}

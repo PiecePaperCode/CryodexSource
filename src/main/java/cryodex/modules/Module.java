@@ -1,14 +1,13 @@
 package cryodex.modules;
 
-import javax.swing.JCheckBoxMenuItem;
-
 import cryodex.Player;
 import cryodex.xml.XMLObject;
 import cryodex.xml.XMLUtils.Element;
+import javafx.scene.control.CheckMenuItem;
 
 public interface Module extends XMLObject {
 
-	public Menu getMenu();
+	public MenuInterface getMenu();
 
 	public RegistrationPanel getRegistration();
 
@@ -24,7 +23,7 @@ public interface Module extends XMLObject {
 
 	public ModulePlayer getNewModulePlayer(Player player);
 	
-	public JCheckBoxMenuItem getViewMenuItem();
+	public CheckMenuItem getViewMenuItem();
 	
-	public void setViewMenuItem(JCheckBoxMenuItem viewMenuItem);
+	public void setViewMenuItem(CheckMenuItem viewMenuItem);
 }
