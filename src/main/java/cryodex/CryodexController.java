@@ -1,9 +1,6 @@
 package cryodex;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Desktop;
-import java.awt.Frame;
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -13,9 +10,6 @@ import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.JOptionPane;
-
 import cryodex.modules.Module;
 import cryodex.modules.Tournament;
 import cryodex.modules.armada.ArmadaModule;
@@ -24,6 +18,9 @@ import cryodex.modules.xwing.XWingModule;
 import cryodex.widget.ComponentUtils;
 import cryodex.xml.XMLUtils;
 import cryodex.xml.XMLUtils.Element;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Tab;
 
 public class CryodexController {
 
@@ -88,7 +85,7 @@ public class CryodexController {
 
 	public static List<Module> getModules() {
 		if (modules == null) {
-			modules = new ArrayList<Module>();
+			modules = new ArrayList<>();
 
 			for (Modules m : Modules.values()) {
 				modules.add(m.getModule());
@@ -132,8 +129,10 @@ public class CryodexController {
 		} else if (tournaments.size() == 1) {
 			return tournaments.get(0);
 		} else {
-			int index = Main.getInstance().getMultipleTournamentTabbedPane()
-					.getSelectedIndex();
+			int index = Main.getInstance()
+                .getMultipleTournamentTabbedPane()
+                .getSelectionModel()
+                .getSelectedIndex();
 			return tournaments.get(index);
 		}
 	}
@@ -145,35 +144,46 @@ public class CryodexController {
 	public static void deleteTournament(boolean check) {
 
 		if (getActiveTournament() == null) {
-			JOptionPane.showMessageDialog(Main.getInstance(),
-					"There are no tournaments to cancel.");
+			new Alert(
+                Alert.AlertType.WARNING,
+                "There are no tournaments to cancel.",
+                ButtonType.OK
+            );
 			return;
 		}
 
-		int result = JOptionPane.YES_OPTION;
+		Alert result = null;
 
 		if (check) {
-			result = JOptionPane
-					.showConfirmDialog(
-							Main.getInstance(),
-							"This action will cancel the entire tournament. Are you sure you want to do this?");
+			result = new Alert(
+                Alert.AlertType.WARNING,
+                "This action will cancel the entire tournament. " +
+                "Are you sure you want to do this?",
+                ButtonType.OK
+            );
+            result.showAndWait();
 		}
 
-		if (result == JOptionPane.YES_OPTION) {
+        assert result != null;
+        if (result.getResult() == ButtonType.OK) {
 
 			Tournament tournament = getActiveTournament();
 
 			if (tournaments.size() == 1) {
-				Main.getInstance().getSingleTournamentPane().removeAll();
-				ComponentUtils.repaint(Main.getInstance()
-						.getSingleTournamentPane());
+				Main.getInstance().getSingleTournamentPane().getChildren().removeAll();
+				// ComponentUtils.repaint(Main.getInstance()
+						// .getSingleTournamentPane());
 			} else {
 				int selectedIndex = Main.getInstance()
-						.getMultipleTournamentTabbedPane().getSelectedIndex();
-				Main.getInstance().getMultipleTournamentTabbedPane()
-						.remove(selectedIndex);
-				ComponentUtils.repaint(Main.getInstance()
-						.getMultipleTournamentTabbedPane());
+                    .getMultipleTournamentTabbedPane()
+                    .getSelectionModel()
+                    .getSelectedIndex();
+				Main.getInstance()
+                    .getMultipleTournamentTabbedPane()
+                    .getTabs()
+                    .remove(selectedIndex);
+				// ComponentUtils.repaint(Main.getInstance()
+				//		.getMultipleTournamentTabbedPane());
 			}
 
 			tournaments.remove(tournament);
@@ -181,7 +191,7 @@ public class CryodexController {
 			display();
 
 			saveData();
-			MenuBar.getInstance().resetMenuBar();
+			MenuBarPane.getInstance().getMenus().removeAll();
 
 			Main.getInstance().validate();
 			Main.getInstance().repaint();
@@ -205,11 +215,11 @@ public class CryodexController {
 
 			Tournament t = tournaments.get(0);
 			Main.getInstance()
-					.getSingleTournamentPane()
-					.add(t.getTournamentGUI().getDisplay(), BorderLayout.CENTER);
+                .getSingleTournamentPane()
+                .setCenter(t.getTournamentGUI().getDisplay());
 			Main.getInstance().setMultiple(false);
-			ComponentUtils
-					.repaint(Main.getInstance().getSingleTournamentPane());
+			// ComponentUtils
+			//		.repaint(Main.getInstance().getSingleTournamentPane());
 		} else if (tournaments.size() == 2) {
 
 			// At two tournaments we switch to the multiple tabbed pane
@@ -222,18 +232,18 @@ public class CryodexController {
 
 			Main.getInstance()
 					.getMultipleTournamentTabbedPane()
-					.addTab(t0Name, t0.getIcon(),
-							t0.getTournamentGUI().getDisplay());
+                    .getTabs()
+					.add(new Tab(t0Name, t0.getTournamentGUI().getDisplay()));
 
 			Main.getInstance()
 					.getMultipleTournamentTabbedPane()
-					.addTab(t1Name, t1.getIcon(),
-							t1.getTournamentGUI().getDisplay());
+					.getTabs()
+                    .add(new Tab(t1Name, t1.getTournamentGUI().getDisplay()));
 
 			Main.getInstance().setMultiple(true);
-			ComponentUtils.repaint(Main.getInstance()
-					.getMultipleTournamentTabbedPane());
-		} else if (tournaments.size() > 2) {
+			// ComponentUtils.repaint(Main.getInstance()
+			//		.getMultipleTournamentTabbedPane());
+		} else {
 
 			// Each tournament after 2 just adds another tab
 
@@ -242,10 +252,10 @@ public class CryodexController {
 					+ tournaments.size() : tn.getName();
 			Main.getInstance()
 					.getMultipleTournamentTabbedPane()
-					.addTab(tnName, tn.getIcon(),
-							tn.getTournamentGUI().getDisplay());
-			ComponentUtils.repaint(Main.getInstance()
-					.getMultipleTournamentTabbedPane());
+                    .getTabs()
+					.add(new Tab(tnName, tn.getTournamentGUI().getDisplay()));
+			// ComponentUtils.repaint(Main.getInstance()
+			//		.getMultipleTournamentTabbedPane());
 		}
 
 	}
@@ -269,7 +279,7 @@ public class CryodexController {
 		XMLUtils.appendList(sb, XMLUtils.PLAYERS, XMLUtils.PLAYER, getPlayers());
 		XMLUtils.appendXMLObject(sb, XMLUtils.OPTIONS, getOptions());
 
-		if (getAllTournaments().isEmpty() == false) {
+		if (!getAllTournaments().isEmpty()) {
 			XMLUtils.appendList(sb, XMLUtils.TOURNAMENTS, XMLUtils.TOURNAMENT,
 					getAllTournaments());
 		}
@@ -280,12 +290,12 @@ public class CryodexController {
 
 		try {
 			File path = new File(System.getProperty("user.dir"));
-			if (path.exists() == false) {
+			if (!path.exists()) {
 				System.out.println("Error with user directory");
 				throw new IOException("Error with user directory");
 			}
 			File file = new File(path, CRYODEX_SAVE);
-			if (file.exists() == false) {
+			if (!file.exists()) {
 				file.createNewFile();
 			} else {
 				file.delete();
@@ -391,10 +401,13 @@ public class CryodexController {
 			reader.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-			JOptionPane
-					.showMessageDialog(
-							Main.getInstance(),
-							"There was an error loading data. The save file version is incompatable or the data is corrupt. You may have to delete it if Cryodex doesn't load completely.");
+			new Alert(
+                Alert.AlertType.ERROR,
+                "There was an error loading data. " +
+                "The save file version is incompatable or the data is corrupt. " +
+                "You may have to delete it if Cryodex doesn't load completely.",
+                ButtonType.OK
+            );
 		} finally {
 			isLoading = false;
 		}
@@ -407,11 +420,14 @@ public class CryodexController {
 					"https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=chris%2ebrown%2espe%40gmail%2ecom&lc=US&item_name=Cryodex&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted");
 			openWebpage(donationURL);
 		} catch (Exception e) {
-			JOptionPane
-					.showMessageDialog(
-							(Component) null,
-							"Well you gave it a shot, and thanks for that. It looks like I'm having trouble opening your browser. If you're still determined, you can send any donations to chris.brown.spe@gmail.com.",
-							"Error", JOptionPane.ERROR_MESSAGE);
+            new Alert(
+                Alert.AlertType.ERROR,
+                "Well you gave it a shot, and thanks for that. It looks like " +
+                "I'm having trouble opening your browser. " +
+                "If you're still determined, you can send any donations to " +
+                "chris.brown.spe@gmail.com.",
+                ButtonType.OK
+            );
 		}
 	}
 
