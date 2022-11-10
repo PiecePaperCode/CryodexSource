@@ -19,7 +19,7 @@ import cryodex.CryodexController;
 import cryodex.widget.ComponentUtils;
 import cryodex.widget.TimerPanel;
 
-public class IARankingTable extends JPanel {
+public class IARankingTable  {
 
 	private static final long serialVersionUID = 5587297504827909147L;
 

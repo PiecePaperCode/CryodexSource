@@ -17,7 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SpringLayout;
 
-public class DoubleList<T extends Comparable<T>> extends JPanel {
+public class DoubleList<T extends Comparable<T>>  {
 
 	private static final long serialVersionUID = 1L;
 

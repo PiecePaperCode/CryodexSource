@@ -29,7 +29,7 @@ import cryodex.CryodexController;
 import cryodex.Player;
 import cryodex.widget.ComponentUtils;
 
-public class IARoundPanel extends JPanel {
+public class IARoundPanel  {
 
 	private static final long serialVersionUID = 1L;
 

@@ -29,7 +29,7 @@ import cryodex.Player;
 import cryodex.widget.ComponentUtils;
 
 @SuppressWarnings("serial")
-public class ArmadaSwapPanel extends JPanel {
+public class ArmadaSwapPanel  {
 
 	public static void showSwapPanel() {
 		JDialog manualModificationPanel = new JDialog(Main.getInstance(),
@@ -365,7 +365,7 @@ public class ArmadaSwapPanel extends JPanel {
 		updating = false;
 	}
 
-	private class MatchPanel extends JPanel {
+	private class MatchPanel  {
 
 		private JComboBox<ArmadaPlayer> player1Combo;
 		private JComboBox<ArmadaPlayer> player2Combo;

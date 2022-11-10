@@ -23,7 +23,7 @@ import cryodex.BigClock;
 // import sun.audio.AudioPlayer;
 // import sun.audio.AudioStream;
 
-public class TimerPanel extends JPanel {
+public class TimerPanel  {
 
 	private static final long serialVersionUID = 1L;
 

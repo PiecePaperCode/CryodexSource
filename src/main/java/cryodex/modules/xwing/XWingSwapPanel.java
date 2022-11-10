@@ -29,7 +29,7 @@ import cryodex.Player;
 import cryodex.widget.ComponentUtils;
 
 @SuppressWarnings("serial")
-public class XWingSwapPanel extends JPanel {
+public class XWingSwapPanel  {
 
 	public static void showSwapPanel() {
 		JDialog manualModificationPanel = new JDialog(Main.getInstance(),
@@ -365,7 +365,7 @@ public class XWingSwapPanel extends JPanel {
 		updating = false;
 	}
 
-	private class MatchPanel extends JPanel {
+	private class MatchPanel  {
 
 		private JComboBox<XWingPlayer> player1Combo;
 		private JComboBox<XWingPlayer> player2Combo;

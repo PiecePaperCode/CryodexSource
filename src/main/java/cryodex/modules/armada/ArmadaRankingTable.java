@@ -19,7 +19,7 @@ import cryodex.CryodexController;
 import cryodex.widget.ComponentUtils;
 import cryodex.widget.TimerPanel;
 
-public class ArmadaRankingTable extends JPanel {
+public class ArmadaRankingTable  {
 
 	private static final long serialVersionUID = 5587297504827909147L;
 

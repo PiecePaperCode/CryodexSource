@@ -24,7 +24,7 @@ import javax.swing.tree.DefaultTreeModel;
  * Copyright (c) Oliver.Watkins
  */
 
-public abstract class FilteredTree extends JPanel {
+public abstract class FilteredTree  {
 
 	private static final long serialVersionUID = 1L;
 

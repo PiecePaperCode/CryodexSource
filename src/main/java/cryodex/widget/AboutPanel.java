@@ -18,7 +18,7 @@ import cryodex.Main;
  * @author cbrown
  *
  */
-public class AboutPanel extends JPanel {
+public class AboutPanel  {
 
 	private static final long serialVersionUID = 1L;
 

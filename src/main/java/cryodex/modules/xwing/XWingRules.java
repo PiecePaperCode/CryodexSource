@@ -27,7 +27,7 @@ import cryodex.widget.FilteredTree;
 import cryodex.xml.XMLUtils;
 import cryodex.xml.XMLUtils.Element;
 
-public class XWingRules extends JPanel implements TreeSelectionListener,
+public class XWingRules  implements TreeSelectionListener,
 		HyperlinkListener {
 
 	private static final long serialVersionUID = 1L;

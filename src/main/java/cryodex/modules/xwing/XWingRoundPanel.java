@@ -32,7 +32,7 @@ import cryodex.Player;
 import cryodex.widget.ComponentUtils;
 import cryodex.widget.ConfirmationTextField;
 
-public class XWingRoundPanel extends JPanel {
+public class XWingRoundPanel  {
 
 	private static final long serialVersionUID = 1L;
 

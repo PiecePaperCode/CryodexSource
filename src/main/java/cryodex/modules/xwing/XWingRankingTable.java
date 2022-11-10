@@ -19,7 +19,7 @@ import cryodex.CryodexController;
 import cryodex.widget.ComponentUtils;
 import cryodex.widget.TimerPanel;
 
-public class XWingRankingTable extends JPanel {
+public class XWingRankingTable  {
 
 	private static final long serialVersionUID = 5587297504827909147L;
 

@@ -39,7 +39,7 @@ import cryodex.modules.Module;
  * @author cbrown
  * 
  */
-public class RegisterPanel extends JPanel {
+public class RegisterPanel  {
 
 	private static final long serialVersionUID = 1L;
 

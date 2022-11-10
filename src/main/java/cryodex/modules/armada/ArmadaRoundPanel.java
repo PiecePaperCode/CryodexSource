@@ -31,7 +31,7 @@ import cryodex.CryodexController;
 import cryodex.Player;
 import cryodex.widget.ComponentUtils;
 
-public class ArmadaRoundPanel extends JPanel {
+public class ArmadaRoundPanel  {
 
 	private static final long serialVersionUID = 1L;
 
