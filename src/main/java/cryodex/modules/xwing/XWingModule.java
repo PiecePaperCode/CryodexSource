@@ -5,7 +5,7 @@ import javax.swing.JDialog;
 
 import cryodex.CryodexController;
 import cryodex.CryodexController.Modules;
-import cryodex.MenuBar;
+import cryodex.MenuBarPane;
 import cryodex.Player;
 import cryodex.modules.Menu;
 import cryodex.modules.Module;
@@ -86,7 +86,7 @@ public class XWingModule implements Module {
 
 		tournament.startTournament();
 
-		MenuBar.getInstance().resetMenuBar();
+		MenuBarPane.getInstance().resetMenuBar();
 
 		CryodexController.saveData();
 	}

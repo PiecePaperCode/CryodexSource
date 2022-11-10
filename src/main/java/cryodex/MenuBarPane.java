@@ -6,9 +6,11 @@ import cryodex.modules.Module;
 import cryodex.widget.AboutPanel;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.MouseEvent;
 
-public class MenuBar {
+public class MenuBarPane {
 	private Menu fileMenu;
 	private Menu viewMenu;
 	private Menu helpMenu;
@@ -21,21 +23,20 @@ public class MenuBar {
 	public static MenuBar getInstance() {
 		if (instance == null) {
 			instance = new MenuBar();
-			instance.resetMenuBar();
 		}
 		return instance;
 	}
 
-	private MenuBar() {
+	private MenuBarPane() {
 
-		this.add(getFileMenu());
-		this.add(getViewMenu());
+		instance.getMenus().add(getFileMenu());
+		instance.getMenus().add(getViewMenu());
 
 		for (final Module m : CryodexController.getModules()) {
-			this.add(m.getMenu().getMenu());
+            instance.getMenus().add(m.getMenu().getMenu());
 		}
 
-		this.add(getHelpMenu());
+        instance.getMenus().add(getHelpMenu());
 	}
 
 	public Menu getFileMenu() {
@@ -44,22 +45,16 @@ public class MenuBar {
 			// fileMenu.setMnemonic('F');
 
 			MenuItem importPlayers = new MenuItem("Import Players");
-			importPlayers.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					PlayerImport.importPlayers();
-				}
-			});
+			importPlayers.addEventHandler(
+                    MouseEvent.MOUSE_CLICKED,
+                    MouseEvent -> PlayerImport.importPlayers()
+			);
 			
-			JMenuItem exit = new JMenuItem("Exit");
-			exit.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					Main.getInstance().dispose();
-				}
-			});
+			MenuItem exit = new MenuItem("Exit");
+			exit.addEventHandler(
+                    MouseEvent.MOUSE_CLICKED,
+                    MouseEvent -> Main.getInstance().dispose()
+			);
 
 			fileMenu.add(importPlayers);
 			fileMenu.add(exit);
@@ -68,51 +63,49 @@ public class MenuBar {
 		return fileMenu;
 	}
 
-	public JMenu getViewMenu() {
+	public Menu getViewMenu() {
 		if (viewMenu == null) {
-			viewMenu = new JMenu("View");
-			viewMenu.setMnemonic('V');
+			viewMenu = new Menu("View");
+			// viewMenu.setMnemonic('V');
 
-			showTableNumbers = new JCheckBoxMenuItem("Show Table Numbers");
+			showTableNumbers = new CheckMenuItem("Show Table Numbers");
 			showTableNumbers.setSelected(true);
-			showTableNumbers.addItemListener(new ItemListener() {
+			showTableNumbers.addEventHandler(
+                MouseEvent.MOUSE_CLICKED,
+                MouseEvent -> showTableNumbers.isSelected()
+			);
 
-				@Override
-				public void itemStateChanged(ItemEvent e) {
-					CryodexController.getOptions().setShowTableNumbers(
-							showTableNumbers.isSelected());
-				}
-			});
-
-			showQuickFind = new JCheckBoxMenuItem("Show Quick Table Search");
+			showQuickFind = new CheckMenuItem("Show Quick Table Search");
 			showQuickFind.setSelected(false);
-			showQuickFind.addItemListener(new ItemListener() {
+			showQuickFind.addEventHandler(
+                MouseEvent.MOUSE_CLICKED,
+                MouseEvent -> CryodexController.
+                    getOptions()
+                    .setShowQuickFind(
+                        showQuickFind.isSelected()
+                    )
+			);
 
-				@Override
-				public void itemStateChanged(ItemEvent e) {
-					CryodexController.getOptions().setShowQuickFind(
-							showQuickFind.isSelected());
-				}
-			});
-
-			final JCheckBoxMenuItem showRegistrationPanel = new JCheckBoxMenuItem(
-					"Show Registration Panel");
+			final CheckMenuItem showRegistrationPanel = new CheckMenuItem(
+                "Show Registration Panel"
+            );
 			showRegistrationPanel.setSelected(true);
-			showRegistrationPanel.addItemListener(new ItemListener() {
-
-				@Override
-				public void itemStateChanged(ItemEvent arg0) {
+			showRegistrationPanel.addEventHandler(
+                MouseEvent.MOUSE_CLICKED,
+                MouseEvent -> {
 					Main.getInstance().getRegisterPane()
-							.remove(Main.getInstance().getRegisterPanel());
+                        .getChildren()
+                        .remove(Main.getInstance().getRegisterPanel());
 					if (showRegistrationPanel.isSelected()) {
 						Main.getInstance().getRegisterPane()
-								.add(Main.getInstance().getRegisterPanel());
+                            .getChildren()
+                            .add(Main.getInstance().getRegisterPanel());
 					}
 
 					Main.getInstance().validate();
 					Main.getInstance().repaint();
 				}
-			});
+			);
 
 			viewMenu.add(showQuickFind);
 			viewMenu.add(showTableNumbers);

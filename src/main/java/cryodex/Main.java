@@ -13,6 +13,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.awt.*;
+
 /**
  * Main class that creates a singleton of the GUI which everything else is built
  * on.
@@ -25,6 +27,7 @@ public class Main extends Application {
 	public static final long delay = 3000;
 
 	private static Main instance = null;
+    private static Stage stage;
 
 	public static Main getInstance() {
 		if (instance == null) {
@@ -36,7 +39,7 @@ public class Main extends Application {
 			instance.getRegisterPanel().addPlayers(
 					CryodexController.getPlayers());
 			CryodexController.isLoading = true;
-			MenuBar.getInstance().resetMenuBar();
+			MenuBarPane.getInstance().resetMenuBar();
 			CryodexController.isLoading = false;
 		}
 
@@ -55,14 +58,15 @@ public class Main extends Application {
 	@Override
 	public void start(Stage stage) {
 		new SplashPanel();
-		stage.setTitle("Piecepaper's Cryodex - Version 4.3.3");
+        Main.stage = stage;
+		Main.stage.setTitle("Piecepaper's Cryodex - Version 4.3.3");
 		BorderPane root = new BorderPane();
-		root.setTop(MenuBar.getInstance());
+		root.setTop(MenuBarPane.getInstance());
 		root.setBottom(getWarningPane());
 		root.setLeft(getRegisterPane());
 		root.setCenter(getTournamentPane());
-		stage.setScene(new Scene(root, 400, 720));
-		stage.show();
+        Main.stage.setScene(new Scene(root, 400, 720));
+        Main.stage.show();
 	}
 
 	public BorderPane getContentFlowPane() {
@@ -156,4 +160,10 @@ public class Main extends Application {
 	}
 
 	public void setSize(int width, int height) {}
+    public void dispose() {
+        Main.stage.close();
+    }
+    public void validate() {}
+    public void repaint() {}
+    public void setExtendedState(int frame) {}
 }

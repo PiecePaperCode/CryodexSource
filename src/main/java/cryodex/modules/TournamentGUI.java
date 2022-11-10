@@ -1,9 +1,9 @@
 package cryodex.modules;
 
-import java.awt.Component;
+import javafx.scene.Node;
 
 public interface TournamentGUI {
 
-	Component getDisplay();
+	Node getDisplay();
 
 }

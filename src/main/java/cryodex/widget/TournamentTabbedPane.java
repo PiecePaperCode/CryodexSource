@@ -1,6 +1,6 @@
 package cryodex.widget;
 
-import cryodex.MenuBar;
+import cryodex.MenuBarPane;
 import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -24,7 +24,7 @@ public class TournamentTabbedPane {
 		tabPane.getTabs().add(tab);
 		tabPane.addEventFilter(
 			MouseEvent.MOUSE_CLICKED,
-			mouseEvent -> MenuBar.getInstance().resetMenuBar()
+			mouseEvent -> MenuBarPane.getInstance().resetMenuBar()
 		);
 	}
 }
