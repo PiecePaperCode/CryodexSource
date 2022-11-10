@@ -5,6 +5,7 @@ import cryodex.widget.SplashPanel;
 import cryodex.widget.TournamentTabbedPane;
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
@@ -39,7 +40,7 @@ public class Main extends Application {
 			instance.getRegisterPanel().addPlayers(
 					CryodexController.getPlayers());
 			CryodexController.isLoading = true;
-			MenuBarPane.getInstance().resetMenuBar();
+			MenuBarPane.getInstance().getMenus().removeAll();
 			CryodexController.isLoading = false;
 		}
 
