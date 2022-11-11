@@ -13,17 +13,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.swing.BorderFactory;
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
+import .swing.BorderFactory;
+import .swing.DefaultListCellRenderer;
+import .swing.JComboBox;
+import .swing.JLabel;
+import .swing.JPanel;
+import .swing.JScrollPane;
+import .swing.JTextField;
+import .swing.SwingConstants;
+import .swing.SwingUtilities;
+import .swing.event.DocumentEvent;
+import .swing.event.DocumentListener;
 
 import cryodex.CryodexController;
 import cryodex.Player;

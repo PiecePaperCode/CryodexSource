@@ -11,15 +11,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.swing.JButton;
-import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import .swing.JButton;
+import .swing.JCheckBoxMenuItem;
+import .swing.JComboBox;
+import .swing.JDialog;
+import .swing.JLabel;
+import .swing.JMenu;
+import .swing.JMenuItem;
+import .swing.JOptionPane;
+import .swing.JPanel;
 
 import cryodex.CryodexController;
 import cryodex.CryodexController.Modules;

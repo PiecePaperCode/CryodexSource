@@ -8,14 +8,14 @@ import java.awt.event.ActionListener;
 import java.util.Collections;
 import java.util.List;
 
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
-import javax.swing.SpringLayout;
+import .swing.DefaultListModel;
+import .swing.JButton;
+import .swing.JLabel;
+import .swing.JList;
+import .swing.JPanel;
+import .swing.JScrollPane;
+import .swing.ListSelectionModel;
+import .swing.SpringLayout;
 
 public class DoubleList<T extends Comparable<T>>  {
 

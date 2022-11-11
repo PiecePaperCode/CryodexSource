@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.swing.JOptionPane;
+import .swing.JOptionPane;
 
 import cryodex.Main;
 

@@ -1,7 +1,7 @@
 package cryodex.modules.imperialassault;
 
-import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JDialog;
+import .swing.JCheckBoxMenuItem;
+import .swing.JDialog;
 
 import cryodex.CryodexController;
 import cryodex.CryodexController.Modules;

@@ -4,9 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
-import javax.swing.BorderFactory;
-import javax.swing.JComponent;
-import javax.swing.JPanel;
+import .swing.BorderFactory;
+import .swing.JComponent;
+import .swing.JPanel;
 
 public class ComponentUtils {
 

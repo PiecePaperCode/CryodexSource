@@ -4,10 +4,10 @@ import java.awt.Color;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
-import javax.swing.BorderFactory;
-import javax.swing.Icon;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
+import .swing.BorderFactory;
+import .swing.Icon;
+import .swing.JLabel;
+import .swing.JTextField;
 
 import cryodex.Icons;
 

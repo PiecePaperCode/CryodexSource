@@ -10,18 +10,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.swing.JEditorPane;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
-import javax.swing.UIManager;
-import javax.swing.event.HyperlinkEvent;
-import javax.swing.event.HyperlinkListener;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreePath;
+import .swing.JEditorPane;
+import .swing.JFrame;
+import .swing.JPanel;
+import .swing.JScrollPane;
+import .swing.JSplitPane;
+import .swing.UIManager;
+import .swing.event.HyperlinkEvent;
+import .swing.event.HyperlinkListener;
+import .swing.event.TreeSelectionEvent;
+import .swing.event.TreeSelectionListener;
+import .swing.tree.DefaultMutableTreeNode;
+import .swing.tree.TreePath;
 
 import cryodex.widget.FilteredTree;
 import cryodex.xml.XMLUtils;
@@ -371,7 +371,7 @@ public class XWingRules  implements TreeSelectionListener,
 
 	
 	public static void main(String[] args) {
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+		.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				createAndShowGUI();
 			}

@@ -7,13 +7,13 @@ import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.util.Objects;
 
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JWindow;
-import javax.swing.SwingWorker;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import .swing.ImageIcon;
+import .swing.JLabel;
+import .swing.JPanel;
+import .swing.JWindow;
+import .swing.SwingWorker;
+import .swing.UIManager;
+import .swing.UnsupportedLookAndFeelException;
 
 import cryodex.Main;
 

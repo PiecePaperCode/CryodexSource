@@ -8,12 +8,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableCellRenderer;
+import .swing.JLabel;
+import .swing.JPanel;
+import .swing.JScrollPane;
+import .swing.JTable;
+import .swing.table.AbstractTableModel;
+import .swing.table.DefaultTableCellRenderer;
 
 import cryodex.CryodexController;
 import cryodex.widget.ComponentUtils;

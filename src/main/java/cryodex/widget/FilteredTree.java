@@ -5,16 +5,16 @@ import java.awt.Component;
 import java.awt.Font;
 import java.util.Enumeration;
 
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.JTree;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeCellRenderer;
-import javax.swing.tree.DefaultTreeModel;
+import .swing.JLabel;
+import .swing.JPanel;
+import .swing.JScrollPane;
+import .swing.JTextField;
+import .swing.JTree;
+import .swing.event.DocumentEvent;
+import .swing.event.DocumentListener;
+import .swing.tree.DefaultMutableTreeNode;
+import .swing.tree.DefaultTreeCellRenderer;
+import .swing.tree.DefaultTreeModel;
 
 /**
  * Tree widget which allows the tree to be filtered on keystroke time. Only

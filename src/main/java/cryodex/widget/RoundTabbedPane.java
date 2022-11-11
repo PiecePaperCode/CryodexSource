@@ -1,6 +1,6 @@
 package cryodex.widget;
 
-import javax.swing.JPanel;
+import .swing.JPanel;
 
 import cryodex.CryodexController;
 

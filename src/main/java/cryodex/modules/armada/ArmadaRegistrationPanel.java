@@ -3,9 +3,9 @@ package cryodex.modules.armada;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import .swing.JCheckBox;
+import .swing.JLabel;
+import .swing.JPanel;
 
 import cryodex.CryodexController.Modules;
 import cryodex.Player;

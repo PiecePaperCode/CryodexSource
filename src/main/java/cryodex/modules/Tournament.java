@@ -3,7 +3,7 @@ package cryodex.modules;
 import java.util.List;
 import java.util.Set;
 
-import javax.swing.Icon;
+import .swing.Icon;
 
 import cryodex.Player;
 import cryodex.xml.XMLObject;

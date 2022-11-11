@@ -9,9 +9,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
+import .swing.Icon;
+import .swing.ImageIcon;
+import .swing.JOptionPane;
 
 import cryodex.CryodexController;
 import cryodex.CryodexController.Modules;

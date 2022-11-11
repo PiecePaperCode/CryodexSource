@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
-import javax.swing.JOptionPane;
+import .swing.JOptionPane;
 
 import cryodex.Main;
 import cryodex.modules.xwing.XWingMatch;

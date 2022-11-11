@@ -24,7 +24,7 @@ public class TournamentTabbedPane {
 		tabPane.getTabs().add(tab);
 		tabPane.addEventFilter(
 			MouseEvent.MOUSE_CLICKED,
-			mouseEvent -> MenuBarPane.getInstance().resetMenuBar()
+			mouseEvent -> MenuBarPane.getInstance().getMenus().removeAll()
 		);
 	}
 }

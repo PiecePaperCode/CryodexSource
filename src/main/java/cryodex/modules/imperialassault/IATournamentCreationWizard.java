@@ -13,15 +13,15 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
-import javax.swing.SpringLayout;
+import .swing.ButtonGroup;
+import .swing.JButton;
+import .swing.JCheckBox;
+import .swing.JDialog;
+import .swing.JLabel;
+import .swing.JPanel;
+import .swing.JRadioButton;
+import .swing.JTextField;
+import .swing.SpringLayout;
 
 import cryodex.CryodexController;
 import cryodex.CryodexController.Modules;

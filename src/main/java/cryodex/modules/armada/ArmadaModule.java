@@ -1,7 +1,7 @@
 package cryodex.modules.armada;
 
-import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JDialog;
+import .swing.JCheckBoxMenuItem;
+import .swing.JDialog;
 
 import cryodex.CryodexController;
 import cryodex.CryodexController.Modules;

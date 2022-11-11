@@ -3,11 +3,11 @@ package cryodex.modules.xwing;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import .swing.JCheckBox;
+import .swing.JComboBox;
+import .swing.JLabel;
+import .swing.JPanel;
+import .swing.JTextField;
 
 import cryodex.Player;
 import cryodex.modules.ModulePlayer;

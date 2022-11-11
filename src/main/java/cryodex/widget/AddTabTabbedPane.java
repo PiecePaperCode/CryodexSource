@@ -4,8 +4,8 @@ import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JLabel;
-import javax.swing.JTabbedPane;
+import .swing.JLabel;
+import .swing.JTabbedPane;
 
 /**
  * This widget is a tabbed pane that has an extra tab at the end that can be

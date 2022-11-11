@@ -2,8 +2,8 @@ package cryodex.modules.imperialassault;
 
 import java.awt.BorderLayout;
 
-import javax.swing.JPanel;
-import javax.swing.JSplitPane;
+import .swing.JPanel;
+import .swing.JSplitPane;
 
 import cryodex.modules.TournamentGUI;
 import cryodex.widget.RoundTabbedPane;
