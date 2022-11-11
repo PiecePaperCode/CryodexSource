@@ -1,124 +1,90 @@
 package cryodex.widget;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.FileInputStream;
-import java.io.InputStream;
-
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.Timer;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
 import cryodex.BigClock;
-// import sun.audio.AudioPlayer;
-// import sun.audio.AudioStream;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
+
+import java.util.Timer;
+
 
 public class TimerPanel  {
-
-	private static final long serialVersionUID = 1L;
-
-	private JLabel timeLabel;
-	private JButton startTimeButton;
-	private JButton stopTimeButton;
-	private JButton resetTimeButton;
+	private Label timeLabel;
+	private Button startTimeButton;
+	private Button stopTimeButton;
+	private Button resetTimeButton;
 	private long timeStart = 0;
-	private JSpinner spinner;
+	private Spinner spinner;
 	private Timer timer;
 	private long timeRemaining = 0;
 	private long millisInRound = 0;
-	private JButton expandButton;
-
-	private final static java.text.SimpleDateFormat timerFormat = new java.text.SimpleDateFormat(
-			"ss");
+	private Button expandButton;
+	private BorderPane mainPanel;
+	private final static java.text.SimpleDateFormat timerFormat = new java.text.SimpleDateFormat("ss");
 
 	public TimerPanel() {
+		BorderPane bottomPanel = new BorderPane();
+		BorderPane buttonPanel = new BorderPane();
+		FlowPane spinnerPanel = new FlowPane();
+		mainPanel = new BorderPane();
 
-		super(new FlowLayout());
-		JPanel bottomPanel = new JPanel(new BorderLayout());
-		JPanel buttonPanel = new JPanel(new BorderLayout());
-		JPanel spinnerPanel = new JPanel(new FlowLayout());
-		JPanel mainPanel = new JPanel(new BorderLayout());
+		spinnerPanel.getChildren().add(new Label("Mins:"));
+		spinnerPanel.getChildren().add(getSpinner());
 
-		spinnerPanel.add(new JLabel("Mins:"));
-		spinnerPanel.add(getSpinner());
-
-		buttonPanel.add(getStartTimeButton(), BorderLayout.NORTH);
-		buttonPanel.add(getStopTimeButton(), BorderLayout.CENTER);
-		buttonPanel.add(getResetTimeButton(), BorderLayout.SOUTH);
+		buttonPanel.setTop(getStartTimeButton());
+		buttonPanel.setCenter(getStopTimeButton());
+		buttonPanel.setBottom(getResetTimeButton());
 
 //		panel.add(getTimeLabel(), BorderLayout.NORTH);
-		bottomPanel.add(buttonPanel, BorderLayout.NORTH);
-		bottomPanel.add(getExpandButton(), BorderLayout.CENTER);
-		bottomPanel.add(spinnerPanel, BorderLayout.SOUTH);
-		
-		mainPanel.add(getTimeLabel(), BorderLayout.CENTER);
-		mainPanel.add(bottomPanel, BorderLayout.SOUTH);
+		bottomPanel.setTop(buttonPanel);
+		bottomPanel.setCenter(getExpandButton());
+		bottomPanel.setBottom(spinnerPanel);
 
-		this.add(mainPanel);
+		mainPanel.setCenter(getTimeLabel());
+		mainPanel.setBottom(bottomPanel);
 	}
 
-	private Component getExpandButton() {
+	private Button getExpandButton() {
 		if(expandButton == null){
-			expandButton = new JButton("Expand");
-			expandButton.addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					BigClock.getInstance().setVisible(true);
-				}
-			});
+			expandButton = new Button("Expand");
+			expandButton.addEventFilter(
+				MouseEvent.MOUSE_CLICKED,
+				MouseEvent -> BigClock.getInstance().show()
+			);
 		}
-		
 		return expandButton;
 	}
 
-	public JLabel getTimeLabel() {
+	public Label getTimeLabel() {
 		if (timeLabel == null) {
-			timeLabel = new JLabel(" ", JLabel.CENTER);
+			timeLabel = new Label(" ");
 			resetTime();
 		}
 		return timeLabel;
 	}
 
-	public JSpinner getSpinner() {
+	public Spinner getSpinner() {
 		if (spinner == null) {
-			spinner = new JSpinner(new SpinnerNumberModel(75, 1, 1440, 1));
-			JComponent field = spinner.getEditor();
-			Dimension prefSize = field.getPreferredSize();
-			prefSize = new Dimension(30, prefSize.height);
-			field.setPreferredSize(prefSize);
-			spinner.addChangeListener(new ChangeListener() {
+			spinner = new Spinner(75, 1, 1440, 1);
+			spinner.addEventFilter(
+				MouseEvent.MOUSE_CLICKED,
+				MouseEvent -> resetTime()
 
-				@Override
-				public void stateChanged(ChangeEvent e) {
-					resetTime();
-				}
-			});
+			);
 		}
 		return spinner;
 	}
 
-	public JButton getStartTimeButton() {
+	public Button getStartTimeButton() {
 		if (startTimeButton == null) {
-			startTimeButton = new JButton("Start");
-			startTimeButton.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-
-					startTime();
-				}
-			});
+			startTimeButton = new Button("Start");
+			startTimeButton.addEventFilter(
+				MouseEvent.MOUSE_CLICKED,
+				MouseEvent -> startTime()
+			);
 		}
 
 		return startTimeButton;
@@ -126,54 +92,42 @@ public class TimerPanel  {
 
 	public Timer getTimer() {
 		if (timer == null) {
-			timer = new Timer(1, new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					checkTime();
-				}
-			});
+			timer = new Timer();
 		}
 		return timer;
 	}
 
-	public JButton getStopTimeButton() {
+	public Button getStopTimeButton() {
 		if (stopTimeButton == null) {
-			stopTimeButton = new JButton("Stop");
-			stopTimeButton.setEnabled(false);
-			stopTimeButton.addActionListener(new ActionListener() {
+			stopTimeButton = new Button("Stop");
+			stopTimeButton.setDisable(true);
+			stopTimeButton.addEventFilter(
+				MouseEvent.MOUSE_CLICKED,
+				MouseEvent -> stopTime()
 
-				@Override
-				public void actionPerformed(ActionEvent e) {
-
-					stopTime();
-				}
-			});
+			);
 		}
 
 		return stopTimeButton;
 	}
 
-	public JButton getResetTimeButton() {
+	public Button getResetTimeButton() {
 		if (resetTimeButton == null) {
-			resetTimeButton = new JButton("Reset");
-			resetTimeButton.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					resetTime();
-				}
-			});
+			resetTimeButton = new Button("Reset");
+			resetTimeButton.addEventFilter(
+				MouseEvent.MOUSE_CLICKED,
+				MouseEvent -> resetTime()
+			);
 		}
 
 		return resetTimeButton;
 	}
 
 	private void startTime() {
-		getSpinner().setEnabled(false);
-		getStartTimeButton().setEnabled(false);
-		getResetTimeButton().setEnabled(false);
-		getStopTimeButton().setEnabled(true);
+		getSpinner().setDisable(true);
+		getStartTimeButton().setDisable(true);
+		getResetTimeButton().setDisable(false);
+		getStopTimeButton().setDisable(false);
 
 		if (millisInRound == 0) {
 
@@ -183,16 +137,16 @@ public class TimerPanel  {
 		}
 
 		timeStart = System.currentTimeMillis();
-		getTimer().start();
+		// getTimer().start();
 	}
 
 	private void stopTime() {
-		getSpinner().setEnabled(true);
-		getStartTimeButton().setEnabled(true);
-		getResetTimeButton().setEnabled(true);
-		getStopTimeButton().setEnabled(false);
+		getSpinner().setDisable(false);
+		getStartTimeButton().setDisable(false);
+		getResetTimeButton().setDisable(false);
+		getStopTimeButton().setDisable(true);
 
-		getTimer().stop();
+		// getTimer().stop();
 		millisInRound = timeRemaining;
 	}
 
@@ -232,8 +186,8 @@ public class TimerPanel  {
 									timeRemaining)));
 		}
 		
-		if(BigClock.getInstance().isVisible()){
-			BigClock.getInstance().getBigClockLabel().setText(getTimeLabel().getText());
+		if(BigClock.getInstance().isShowing()){
+			// BigClock.getInstance().get.setText(getTimeLabel().getText());
 		}
 
 	}
