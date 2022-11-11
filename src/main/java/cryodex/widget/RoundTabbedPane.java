@@ -1,45 +1,29 @@
 package cryodex.widget;
 
-import .swing.JPanel;
-
 import cryodex.CryodexController;
+import javafx.scene.Node;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 
-public class RoundTabbedPane extends AddTabTabbedPane {
-
-	private static final long serialVersionUID = 7883808610257649371L;
-
+public class RoundTabbedPane {
+	TabPane roundTabbedPane;
 	public RoundTabbedPane() {
-		super("Generate Next Round");
+		roundTabbedPane = new TabPane();
 	}
 
-	public void addSwissTab(int roundNumber, JPanel roundPanel) {
-		setVisible(true);
-		while (this.getTabCount() > roundNumber) {
-			this.remove(roundNumber - 2);
+	public Node getNode() {
+		return roundTabbedPane;
+	}
+
+	public void addSwissTab(int roundNumber, Tab roundPanel) {
+		while (roundTabbedPane.getTabs().size() > roundNumber) {
+			roundTabbedPane.getTabs().remove(roundNumber - 2);
 		}
 
-		this.addTab("Round " + roundNumber, roundPanel);
-
-		this.validate();
-		this.repaint();
+		roundTabbedPane.getTabs().add(roundNumber, roundPanel);
 	}
 
-	public void addSingleEliminationTab(int numberOfPlayers, JPanel roundPanel) {
-		setVisible(true);
-
-		this.addTab("Top " + numberOfPlayers, roundPanel);
-
-		this.validate();
-		this.repaint();
-	}
-
-	@Override
-	public void triggerEvent() {
-		boolean successful = CryodexController.getActiveTournament()
-				.generateNextRound();
-
-		if (successful == false) {
-			setSelectedIndex(getTabCount() - 2);
-		}
+	public void addSingleEliminationTab(int numberOfPlayers, Tab roundPanel) {
+		roundTabbedPane.getTabs().add(numberOfPlayers, roundPanel);
 	}
 }
