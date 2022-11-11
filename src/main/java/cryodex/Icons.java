@@ -1,9 +1,10 @@
 package cryodex;
 
+import javafx.scene.image.Image;
+
+import java.io.IOException;
 import java.net.URL;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 
 public class Icons {
 
@@ -16,27 +17,29 @@ public class Icons {
 		return instance;
 	}
 
-	private ImageIcon redx;
-	private ImageIcon greencheckmark;
+	private Image redx;
+	private Image greencheckmark;
 
-	public Icon getRedX() {
+	public Image getRedX() throws IOException {
 		if (redx == null) {
 			URL imgURL = Icons.class.getResource("RedX.png");
 			if (imgURL == null) {
 				System.out.println("fail!!!!!!!!!!");
 			}
-			redx = new ImageIcon(imgURL);
+			assert imgURL != null;
+			redx = new Image(imgURL.openStream());
 		}
 		return redx;
 	}
 
-	public Icon getGreenCheckMark() {
+	public Image getGreenCheckMark() throws IOException {
 		if (greencheckmark == null) {
 			URL imgURL = Icons.class.getResource("GreenCheckMark.png");
 			if (imgURL == null) {
 				System.out.println("fail!!!!!!!!!!");
 			}
-			greencheckmark = new ImageIcon(imgURL);
+			assert imgURL != null;
+			greencheckmark = new Image(imgURL.openStream());
 		}
 		return greencheckmark;
 	}
