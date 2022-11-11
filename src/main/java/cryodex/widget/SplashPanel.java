@@ -1,103 +1,45 @@
 package cryodex.widget;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.Toolkit;
+import javafx.application.Platform;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
+
 import java.util.Objects;
 
-import .swing.ImageIcon;
-import .swing.JLabel;
-import .swing.JPanel;
-import .swing.JWindow;
-import .swing.SwingWorker;
-import .swing.UIManager;
-import .swing.UnsupportedLookAndFeelException;
-
-import cryodex.Main;
-
-public class SplashPanel extends JWindow {
-
-	private static final long serialVersionUID = 1L;
+public class SplashPanel {
 
 	public static void main(String[] args) {
 		new SplashPanel();
 	}
 
 	public SplashPanel() {
-		EventQueue.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					UIManager.setLookAndFeel(UIManager
-							.getSystemLookAndFeelClassName());
-				} catch (ClassNotFoundException | InstantiationException
-						| IllegalAccessException
-						| UnsupportedLookAndFeelException ex) {
-					ex.printStackTrace();
-				}
-
-				showSplash();
-
-			}
-		});
+		Platform.runLater(this::showSplash);
 	}
 
 	public void showSplash() {
-
-		JPanel content = (JPanel) getContentPane();
-		content.setBackground(Color.black);
-
-		// Set the window's bounds, centering the window
-		int width = 600;
-		int height = 500;
-		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-		int x = (screen.width - width) / 2;
-		int y = (screen.height - height) / 2;
-		setBounds(x, y, width, height);
+		BorderPane content = new BorderPane();
 
 		// Build the splash screen
-		JLabel ardvark = new JLabel(
-			new ImageIcon(Objects.requireNonNull(
-					getClass().getResource("logo.png")
-			))
-		);
+		ImageView ardvark = new ImageView(new Image(
+			Objects.requireNonNull(
+				SplashPanel.class.getResourceAsStream("logo.png")
+			)
+		));
+		ImageView wait = new ImageView(new Image(
+				Objects.requireNonNull(
+						SplashPanel.class.getResourceAsStream("wait.gif")
+				)
+		));
 
-		ImageIcon wait = new ImageIcon(
-			Objects.requireNonNull(getClass().getResource("wait.gif"))
-		);
+		content.setCenter(ardvark);
+		content.setBottom(wait);
 
-		content.add(ardvark, BorderLayout.CENTER);
-		content.add(new JLabel(wait), BorderLayout.SOUTH);
-
-		// Display it
-		setVisible(true);
-		toFront();
-
-		new ResourceLoader().execute();
+		var scene = new Scene(content, 600, 500);
+		var stage = new Stage();
+		stage.setScene(scene);
+		stage.show();
 	}
-
-	public class ResourceLoader extends SwingWorker<Object, Object> {
-
-		@Override
-		protected Object doInBackground() throws Exception {
-
-			// Wait a little while, maybe while loading resources
-			try {
-				Thread.sleep(Main.delay);
-			} catch (Exception e) {
-			}
-
-			return null;
-
-		}
-
-		@Override
-		protected void done() {
-			setVisible(false);
-		}
-
-	}
-
 }
