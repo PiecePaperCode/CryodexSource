@@ -378,7 +378,7 @@ public class XWingRoundPanel extends JPanel {
 				String generic = XWingModule.getInstance().getOptions().isEnterOnlyPoints() ? "Enter results"
 						: "Select a result";
 				String[] values = { generic, "WIN - " + match.getPlayer1().getName(),
-						"WIN - " + match.getPlayer2().getName() };
+						"WIN - " + match.getPlayer2().getName(), "Draw" };
 				return values;
 			}
 		}
@@ -430,6 +430,9 @@ public class XWingRoundPanel extends JPanel {
 			case 2:
 				match.setWinner(match.getPlayer2());
 				break;
+            case 3:
+                match.setDraw(true);
+                break;
 			default:
 				break;
 			}

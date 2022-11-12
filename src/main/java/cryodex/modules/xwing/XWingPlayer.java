@@ -105,7 +105,7 @@ public class XWingPlayer implements Comparable<ModulePlayer>, XMLObject,
 
 		if (killMap == null) {
 
-			killMap = new HashMap<Faction, Integer>();
+			killMap = new HashMap<>();
 			killMap.put(Faction.REBEL, 0);
 			killMap.put(Faction.IMPERIAL, 0);
 			killMap.put(Faction.SCUM, 0);
@@ -172,7 +172,9 @@ public class XWingPlayer implements Comparable<ModulePlayer>, XMLObject,
 		int score = 0;
 		for (XWingMatch match : getMatches(t)) {
 			if (match.getWinner() == this) {
-				score += XWingMatch.WIN_POINTS;
+                score += XWingMatch.WIN_POINTS;
+            } else if (match.isDraw()) {
+                score += XWingMatch.DRAW;
 			} else if (match.isBye()) {
 				score += XWingMatch.BYE_POINTS;
 			} else {
