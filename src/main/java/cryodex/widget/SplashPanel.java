@@ -2,11 +2,8 @@ package cryodex.widget;
 
 import java.awt.*;
 import java.io.IOException;
-
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
-import cryodex.Main;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
