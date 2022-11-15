@@ -372,13 +372,13 @@ public class XWingRoundPanel extends JPanel {
 		private String[] getComboValues() {
 
 			if (match.getPlayer2() == null) {
-				String[] values = { "Select a result", "BYE" };
-				return values;
-			} else {
+                String[] values = {"Select a result", "BYE"};
+                return values;
+            } else {
 				String generic = XWingModule.getInstance().getOptions().isEnterOnlyPoints() ? "Enter results"
 						: "Select a result";
 				String[] values = { generic, "WIN - " + match.getPlayer1().getName(),
-						"WIN - " + match.getPlayer2().getName() };
+						"WIN - " + match.getPlayer2().getName(), "Draw" };
 				return values;
 			}
 		}
@@ -430,6 +430,9 @@ public class XWingRoundPanel extends JPanel {
 			case 2:
 				match.setWinner(match.getPlayer2());
 				break;
+            case 3:
+                match.setDraw(true);
+                break;
 			default:
 				break;
 			}
@@ -461,6 +464,7 @@ public class XWingRoundPanel extends JPanel {
 
 					@Override
 					public void focusGained(FocusEvent arg0) {
+                        focusLost(arg0);
 					}
 				});
 				ComponentUtils.forceSize(player1KillPoints, 50, 25);
@@ -493,6 +497,7 @@ public class XWingRoundPanel extends JPanel {
 
 					@Override
 					public void focusGained(FocusEvent arg0) {
+                        focusLost(arg0);
 					}
 				});
 				ComponentUtils.forceSize(player2KillPoints, 50, 25);
