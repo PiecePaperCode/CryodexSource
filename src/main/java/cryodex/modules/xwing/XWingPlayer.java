@@ -236,6 +236,19 @@ public class XWingPlayer implements Comparable<ModulePlayer>, XMLObject,
 		return score;
 	}
 
+    public int getDraws(XWingTournament t) {
+        int score = 0;
+        for (XWingMatch match : getMatches(t)) {
+            if (
+                match.isDraw()
+                && (match.getPlayer1() == this || match.getPlayer2() == this)
+            ) {
+                score++;
+            }
+        }
+        return score;
+    }
+
 	public int getByes(XWingTournament t) {
 		int byes = 0;
 		for (XWingMatch match : getMatches(t)) {

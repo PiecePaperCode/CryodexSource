@@ -251,7 +251,8 @@ public class XWingRankingTable extends JPanel {
                 break;
             case 4:
 				value = user.getWins(tournament) + " / "
-						+ user.getLosses(tournament);
+						+ user.getLosses(tournament) + " / "
+                        + user.getDraws(tournament);
 				break;
 			case 5:
 				value = user.getByes(tournament);
