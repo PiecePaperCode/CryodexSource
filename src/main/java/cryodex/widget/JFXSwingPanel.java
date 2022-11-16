@@ -1,12 +1,16 @@
 package cryodex.widget;
 
+import javafx.embed.swing.JFXPanel;
+import javafx.embed.swing.SwingNode;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import org.kordamp.bootstrapfx.BootstrapFX;
 
+import javax.swing.*;
+
 public class JFXSwingPanel {
-    public static javafx.embed.swing.JFXPanel create(Parent root) {
-        javafx.embed.swing.JFXPanel panel = new javafx.embed.swing.JFXPanel();
+    public static JFXPanel create(Parent root) {
+        JFXPanel panel = new JFXPanel();
         var scene = new Scene(root);
         scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
         panel.setScene(scene);

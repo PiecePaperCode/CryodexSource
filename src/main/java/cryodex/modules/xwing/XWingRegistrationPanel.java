@@ -1,12 +1,11 @@
 package cryodex.modules.xwing;
 
 import cryodex.Player;
-import cryodex.components.Header;
+import cryodex.components.Bootstrap;
 import cryodex.modules.ModulePlayer;
 import cryodex.modules.RegistrationPanel;
 import cryodex.modules.xwing.XWingPlayer.Faction;
-import cryodex.widget.JFXSwingPanel;
-import javafx.embed.swing.JFXPanel;
+import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -16,28 +15,27 @@ public class XWingRegistrationPanel implements RegistrationPanel {
 
 	private TextField squadField;
 	private CheckBox firstRoundByeCheckbox;
-	private VBox root;
+	private VBox panel;
 	private ComboBox<Faction> factionCombo;
 
 	@Override
-	public JFXPanel getPanel() {
-		if (root == null) {
-			root = new VBox();
-			root.setSpacing(10);
-			root.getChildren().add(new Header().H3("X-Wing"));
-			root.getChildren().add(new Header().H4("Squadron Builder ID"));
-			root.getChildren().add(getSquadField());
-			root.getChildren().add(new Header().H4("Faction"));
-			root.getChildren().add(getFactionCombo());
-			root.getChildren().add(getFirstRoundByeCheckbox());
+	public Node getPanel() {
+		if (panel == null) {
+			panel = new Bootstrap().VBox(
+				new Bootstrap().H4("X-Wing"),
+				new Bootstrap().H5("Squadron Builder ID"),
+				getSquadField(),
+				new Bootstrap().H5("Faction"),
+				getFactionCombo(),
+				getFirstRoundByeCheckbox()
+			);
 		}
-		return JFXSwingPanel.create(root);
+		return panel;
 	}
 
 	private ComboBox<Faction> getFactionCombo() {
 		if(factionCombo == null){
-			factionCombo = new ComboBox<>();
-			factionCombo.getStyleClass().add("split-menu-btn");
+			factionCombo = new Bootstrap().Combobox();
 			factionCombo.getItems().add(Faction.FIRST_ORDER);
 			factionCombo.getItems().add(Faction.IMPERIAL);
 			factionCombo.getItems().add(Faction.REPUBLIC);
@@ -53,7 +51,7 @@ public class XWingRegistrationPanel implements RegistrationPanel {
 
 	private TextField getSquadField() {
 		if (squadField == null) {
-			squadField = new TextField();
+			squadField = new Bootstrap().DefaultTextField();
 		}
 		return squadField;
 	}

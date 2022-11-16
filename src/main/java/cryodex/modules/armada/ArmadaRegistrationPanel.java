@@ -9,53 +9,34 @@ import javax.swing.JPanel;
 
 import cryodex.CryodexController.Modules;
 import cryodex.Player;
+import cryodex.components.Bootstrap;
 import cryodex.modules.ModulePlayer;
 import cryodex.modules.RegistrationPanel;
+import cryodex.widget.JFXSwingPanel;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 
 public class ArmadaRegistrationPanel implements RegistrationPanel {
 
 	// private JTextField squadField;
-	private JCheckBox firstRoundByeCheckbox;
-	private JPanel panel;
+	private CheckBox firstRoundByeCheckbox;
+	private Node panel;
 
-	@Override
-	public JPanel getPanel() {
+	public Node getPanel() {
 		if (panel == null) {
-			panel = new JPanel(new GridBagLayout());
-
-			GridBagConstraints gbc = new GridBagConstraints();
-
-			gbc.gridx = 0;
-			gbc.gridy = 0;
-			gbc.fill = GridBagConstraints.BOTH;
-			gbc.weightx = 1;
-			gbc.anchor = GridBagConstraints.EAST;
-			panel.add(new JLabel("<html><b>" + Modules.ARMADA.getName()
-					+ "</b></html>"), gbc);
-
-			// gbc.gridy++;
-			// panel.add(new JLabel("Squadron Builder ID"), gbc);
-			//
-			// gbc.gridy++;
-			// panel.add(getSquadField(), gbc);
-
-			gbc.gridy++;
-			panel.add(getFirstRoundByeCheckbox(), gbc);
+			panel = new Bootstrap().VBox(
+				new Bootstrap().H4(Modules.ARMADA.getName()),
+				getFirstRoundByeCheckbox()
+			);
 		}
-
 		return panel;
 	}
 
-	// private JTextField getSquadField() {
-	// if (squadField == null) {
-	// squadField = new JTextField();
-	// }
-	// return squadField;
-	// }
-
-	private JCheckBox getFirstRoundByeCheckbox() {
+	private CheckBox getFirstRoundByeCheckbox() {
 		if (firstRoundByeCheckbox == null) {
-			firstRoundByeCheckbox = new JCheckBox("First Round Bye");
+			firstRoundByeCheckbox = new CheckBox("First Round Bye");
 		}
 		return firstRoundByeCheckbox;
 	}
@@ -66,8 +47,10 @@ public class ArmadaRegistrationPanel implements RegistrationPanel {
 		ArmadaPlayer xp = null;
 
 		// get module information
-		if (player.getModuleInfo() != null
-				&& player.getModuleInfo().isEmpty() == false) {
+		if (
+			player.getModuleInfo() != null
+			&& !player.getModuleInfo().isEmpty()
+		) {
 			for (ModulePlayer mp : player.getModuleInfo()) {
 				if (mp instanceof ArmadaPlayer) {
 					xp = (ArmadaPlayer) mp;
@@ -92,8 +75,10 @@ public class ArmadaRegistrationPanel implements RegistrationPanel {
 		ArmadaPlayer xp = null;
 
 		// get module information
-		if (player != null && player.getModuleInfo() != null
-				&& player.getModuleInfo().isEmpty() == false) {
+		if (
+			player != null && player.getModuleInfo() != null
+			&& !player.getModuleInfo().isEmpty()
+		) {
 			for (ModulePlayer mp : player.getModuleInfo()) {
 				if (mp instanceof ArmadaPlayer) {
 					xp = (ArmadaPlayer) mp;

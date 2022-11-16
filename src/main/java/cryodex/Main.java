@@ -77,7 +77,6 @@ public class Main extends JFrame {
 		getContentFlowPane().add(getTournamentPane(), BorderLayout.CENTER);
 
 		this.add(getContentFlowPane());
-		registerPanel.registerButton();
 
 		this.setJMenuBar(MenuBar.getInstance());
 	}
@@ -99,7 +98,7 @@ public class Main extends JFrame {
 	public JPanel getRegisterPane() {
 		if (registerPane == null) {
 			registerPane = new JPanel(new BorderLayout());
-			registerPane.add(getRegisterPanel(), BorderLayout.CENTER);
+			registerPane.add(getRegisterPanel().getPanel(), BorderLayout.CENTER);
 		}
 		return registerPane;
 	}

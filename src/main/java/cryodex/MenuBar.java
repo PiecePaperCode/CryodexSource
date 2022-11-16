@@ -114,10 +114,10 @@ public class MenuBar extends JMenuBar {
 				@Override
 				public void itemStateChanged(ItemEvent arg0) {
 					Main.getInstance().getRegisterPane()
-							.remove(Main.getInstance().getRegisterPanel());
+							.remove(Main.getInstance().getRegisterPanel().getPanel());
 					if (showRegistrationPanel.isSelected()) {
 						Main.getInstance().getRegisterPane()
-								.add(Main.getInstance().getRegisterPanel());
+								.add(Main.getInstance().getRegisterPanel().getPanel());
 					}
 
 					Main.getInstance().validate();
