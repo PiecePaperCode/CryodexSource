@@ -1,11 +1,13 @@
 package cryodex.modules;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import cryodex.Player;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.Node;
 
 public interface RegistrationPanel {
-	public JPanel getPanel();
+	public Node getPanel();
 
 	public void save(Player player);
 

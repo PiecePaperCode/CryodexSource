@@ -1,103 +1,56 @@
 package cryodex.widget;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.Toolkit;
-import java.util.Objects;
+import java.awt.*;
+import java.io.IOException;
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JWindow;
-import javax.swing.SwingWorker;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.*;
 
-import cryodex.Main;
+public class SplashPanel {
+    int width = 600;
+    int height = 500;
+    Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+    int x = (screen.width - width) / 2;
+    int y = (screen.height - height) / 2;
 
-public class SplashPanel extends JWindow {
-
-	private static final long serialVersionUID = 1L;
-
-	public static void main(String[] args) {
-		new SplashPanel();
-	}
+    public static void main(String[] args) {
+        new SplashPanel();
+    }
 
 	public SplashPanel() {
-		EventQueue.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					UIManager.setLookAndFeel(UIManager
-							.getSystemLookAndFeelClassName());
-				} catch (ClassNotFoundException | InstantiationException
-						| IllegalAccessException
-						| UnsupportedLookAndFeelException ex) {
-					ex.printStackTrace();
-				}
+        JWindow frame = new JWindow();
+        final JFXPanel fxPanel = new JFXPanel();
+        frame.add(fxPanel);
+        frame.setBounds(x, y, width, height);
+        frame.setVisible(true);
+        Platform.runLater(() -> {
+            try {
+                fxPanel.setScene(createScene());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
 
-				showSplash();
-
-			}
-		});
-	}
-
-	public void showSplash() {
-
-		JPanel content = (JPanel) getContentPane();
-		content.setBackground(Color.black);
-
-		// Set the window's bounds, centering the window
-		int width = 600;
-		int height = 500;
-		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-		int x = (screen.width - width) / 2;
-		int y = (screen.height - height) / 2;
-		setBounds(x, y, width, height);
-
-		// Build the splash screen
-		JLabel ardvark = new JLabel(
-			new ImageIcon(Objects.requireNonNull(
-					getClass().getResource("logo.png")
-			))
-		);
-
-		ImageIcon wait = new ImageIcon(
-			Objects.requireNonNull(getClass().getResource("wait.gif"))
-		);
-
-		content.add(ardvark, BorderLayout.CENTER);
-		content.add(new JLabel(wait), BorderLayout.SOUTH);
-
-		// Display it
-		setVisible(true);
-		toFront();
-
-		new ResourceLoader().execute();
-	}
-
-	public class ResourceLoader extends SwingWorker<Object, Object> {
-
-		@Override
-		protected Object doInBackground() throws Exception {
-
-			// Wait a little while, maybe while loading resources
-			try {
-				Thread.sleep(Main.delay);
-			} catch (Exception e) {
-			}
-
-			return null;
-
-		}
-
-		@Override
-		protected void done() {
-			setVisible(false);
-		}
-
+    public Scene createScene() throws IOException {
+        BorderPane content = new BorderPane();
+		content.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+        ImageView ardvark = new ImageView(new Image(SplashPanel.class.getResource("logo.png").openStream()));
+        ImageView waitImg = new ImageView(new Image(SplashPanel.class.getResource("wait.gif").openStream()));
+        HBox wait = new HBox();
+        wait.setAlignment(Pos.CENTER);
+        wait.getChildren().add(waitImg);
+		content.setCenter(ardvark);
+		content.setBottom(wait);
+        return new Scene(content, width, height);
 	}
 
 }
