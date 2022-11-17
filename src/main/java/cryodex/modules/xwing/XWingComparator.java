@@ -4,20 +4,30 @@ import cryodex.modules.TournamentComparator;
 
 public class XWingComparator extends TournamentComparator<XWingPlayer> {
 
-	public static enum CompareOptions {
-		HEAD_TO_HEAD, MARGIN_OF_VICTORY, STRENGH_OF_SCHEDULE, AVERAGE_STRENGTH_OF_SCHEDULE, SCORE, RANDOM, NAME;
+	public enum CompareOptions {
+		HEAD_TO_HEAD,
+        MARGIN_OF_VICTORY,
+        STRENGH_OF_SCHEDULE,
+        AVERAGE_STRENGTH_OF_SCHEDULE,
+        SCORE,
+        RANDOM,
+        NAME
 	}
 
-	public static final CompareOptions[] uniqueCompare = { CompareOptions.NAME };
-	public static final CompareOptions[] pairingCompare = {
-			CompareOptions.SCORE, CompareOptions.MARGIN_OF_VICTORY };
+    public static final CompareOptions[] pairingCompare = {
+			CompareOptions.SCORE,
+            CompareOptions.AVERAGE_STRENGTH_OF_SCHEDULE,
+    };
 	public static final CompareOptions[] rankingCompare = {
 			CompareOptions.SCORE,
-			CompareOptions.MARGIN_OF_VICTORY,
-			CompareOptions.AVERAGE_STRENGTH_OF_SCHEDULE, CompareOptions.RANDOM };
+            CompareOptions.AVERAGE_STRENGTH_OF_SCHEDULE,
+            CompareOptions.RANDOM
+    };
 	public static final CompareOptions[] rankingCompareNoHeadToHead = {
-			CompareOptions.SCORE, CompareOptions.MARGIN_OF_VICTORY,
-			CompareOptions.AVERAGE_STRENGTH_OF_SCHEDULE, CompareOptions.RANDOM };
+			CompareOptions.SCORE,
+			CompareOptions.AVERAGE_STRENGTH_OF_SCHEDULE,
+            CompareOptions.RANDOM
+    };
 
 	private final XWingTournament t;
 	private final CompareOptions[] sortOrder;

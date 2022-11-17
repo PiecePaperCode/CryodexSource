@@ -202,12 +202,12 @@ public class XWingRankingTable extends JPanel {
 				value = "Score";
 				break;
 			case 2:
-				value = "MoV";
-				break;
-			case 3:
 				value = "SoS";
 				break;
-			case 4:
+            case 3:
+                value = "MoV";
+                break;
+            case 4:
 				value = "Record";
 				break;
 			case 5:
@@ -244,14 +244,15 @@ public class XWingRankingTable extends JPanel {
 				value = user.getScore(tournament);
 				break;
 			case 2:
-				value = user.getMarginOfVictory(tournament);
-				break;
-			case 3:
 				value = user.getAverageSoS(tournament);
 				break;
-			case 4:
+            case 3:
+                value = user.getMarginOfVictory(tournament);
+                break;
+            case 4:
 				value = user.getWins(tournament) + " / "
-						+ user.getLosses(tournament);
+						+ user.getLosses(tournament) + " / "
+                        + user.getDraws(tournament);
 				break;
 			case 5:
 				value = user.getByes(tournament);

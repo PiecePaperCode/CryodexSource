@@ -12,8 +12,9 @@ import cryodex.xml.XMLUtils.Element;
 
 public class XWingMatch implements XMLObject {
 
-	public static final int WIN_POINTS = 1;
-	public static final int BYE_POINTS = 1;
+	public static final int WIN_POINTS = 3;
+	public static final int BYE_POINTS = 3;
+    public static final int DRAW = 1;
 	public static final int LOSS_POINTS = 0;
 
 	private XWingPlayer player1;
@@ -23,6 +24,7 @@ public class XWingMatch implements XMLObject {
 	private Integer player1PointsDestroyed;
 	private Integer player2PointsDestroyed;
 	private boolean isDuplicate;
+    private boolean isDraw = false;
 
 	public XWingMatch() {
 
@@ -120,7 +122,7 @@ public class XWingMatch implements XMLObject {
 	}
 
 	public boolean isMatchComplete() {
-		return isBye || winner != null;
+		return isBye || isDraw || winner != null;
 	}
 
 	public boolean isValidResult(boolean isSingleElimination) {
@@ -136,7 +138,8 @@ public class XWingMatch implements XMLObject {
 		// player is the winner according to points
 		if ((winner == player1 && player1Points >= player2Points)
 				|| (winner == player2 && player2Points >= player1Points)
-				|| (player1Points == player2Points && winner != null)) {
+				|| (player1Points.equals(player2Points) && winner != null)
+                || (player1Points.equals(player2Points) && isDraw)){
 			return true;
 		}
 		
@@ -183,6 +186,7 @@ public class XWingMatch implements XMLObject {
 		XMLUtils.appendObject(sb, "PLAYER2", getPlayer2() == null ? "" : getPlayer2().getPlayer().getSaveId());
 		XMLUtils.appendObject(sb, "WINNER", getWinner() == null ? "" : getWinner().getPlayer().getSaveId());
 		XMLUtils.appendObject(sb, "ISBYE", isBye());
+        XMLUtils.appendObject(sb, "ISDRAW", isDraw());
 		XMLUtils.appendObject(sb, "PLAYER1POINTS", getPlayer1PointsDestroyed());
 		XMLUtils.appendObject(sb, "PLAYER2POINTS", getPlayer2PointsDestroyed());
 		XMLUtils.appendObject(sb, "ISDUPLICATE", isDuplicate());
@@ -190,7 +194,15 @@ public class XWingMatch implements XMLObject {
 		return sb;
 	}
 
-	public static boolean hasDuplicate(List<XWingMatch> matches) {
+    public Boolean isDraw() {
+        return isDraw;
+    }
+
+    public void setDraw(boolean b) {
+        isDraw = b;
+    }
+
+    public static boolean hasDuplicate(List<XWingMatch> matches) {
 		boolean duplicateFound = false;
 		for (XWingMatch dc : matches) {
 			if (dc.isDuplicate()) {
