@@ -3,6 +3,7 @@ package cryodex;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.io.Serial;
 import java.util.Objects;
 
 import javax.swing.*;
@@ -23,6 +24,7 @@ public class Main extends JFrame {
 
 	public static final long delay = 3000;
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	private static Main instance = null;
@@ -33,7 +35,7 @@ public class Main extends JFrame {
 			instance = new Main();
 			instance.setSize(400, 720);
 			ImageIcon icon = new ImageIcon(
-				Main.class.getResource("icon.png")
+				Objects.requireNonNull(Main.class.getResource("icon.png"))
 			);
 			instance.setIconImage(icon.getImage());
 

@@ -262,7 +262,7 @@ public class XWingTournament implements XMLObject, Tournament {
 	public void updateVisualOptions() {
 		if (CryodexController.isLoading == false) {
 			for (XWingRound r : getAllRounds()) {
-				r.getPanel().resetGamePanels(true);
+				// r.getPanel().resetGamePanels(true);
 			}
 		}
 	}

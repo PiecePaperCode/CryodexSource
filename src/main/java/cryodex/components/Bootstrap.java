@@ -60,7 +60,7 @@ public class Bootstrap {
     }
 
     public TextField DefaultTextField(String text) {
-        return createTextField(text, "lbl-default");
+        return createTextField(text, "lead");
     }
     public TextField DefaultTextField() {
         return createTextField("", "lead");
@@ -68,6 +68,11 @@ public class Bootstrap {
     public static final double SPACING = 14;
     public VBox VBox(Node... nodes) {
         var vBox = new VBox(nodes);
+        vBox.setSpacing(SPACING);
+        return vBox;
+    }
+    public VBox VBox() {
+        var vBox = new VBox();
         vBox.setSpacing(SPACING);
         return vBox;
     }

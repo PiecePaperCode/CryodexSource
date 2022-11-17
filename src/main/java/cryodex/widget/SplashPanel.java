@@ -2,6 +2,10 @@ package cryodex.widget;
 
 import java.awt.*;
 import java.io.IOException;
+
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.geometry.Insets;
@@ -11,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
 import javax.swing.*;
 
@@ -31,13 +36,15 @@ public class SplashPanel {
         frame.add(fxPanel);
         frame.setBounds(x, y, width, height);
         frame.setVisible(true);
-        Platform.runLater(() -> {
-            try {
-                fxPanel.setScene(createScene());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        final KeyFrame kf1 = new KeyFrame(Duration.seconds(0), e -> frame.setVisible(true));
+        final KeyFrame kf2 = new KeyFrame(Duration.seconds(3), e -> frame.setVisible(false));
+        final Timeline timeline = new Timeline(kf1, kf2);
+        try {
+            fxPanel.setScene(createScene());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Platform.runLater(timeline::play);
     }
 
     public Scene createScene() throws IOException {

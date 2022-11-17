@@ -1,11 +1,15 @@
 package cryodex.modules.xwing;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import cryodex.xml.XMLObject;
 import cryodex.xml.XMLUtils;
 import cryodex.xml.XMLUtils.Element;
+import javafx.embed.swing.JFXPanel;
+
+import javax.swing.*;
 
 public class XWingRound implements XMLObject {
 	private List<XWingMatch> matches;
@@ -42,8 +46,8 @@ public class XWingRound implements XMLObject {
 		this.matches = matches;
 	}
 
-	public XWingRoundPanel getPanel() {
-		return panel;
+	public JFXPanel getPanel() {
+		return panel.getPanel();
 	}
 
 	public void setPanel(XWingRoundPanel panel) {

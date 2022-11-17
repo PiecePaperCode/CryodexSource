@@ -3,6 +3,7 @@ package cryodex.widget;
 import javax.swing.JPanel;
 
 import cryodex.CryodexController;
+import javafx.embed.swing.JFXPanel;
 
 public class RoundTabbedPane extends AddTabTabbedPane {
 
@@ -12,6 +13,17 @@ public class RoundTabbedPane extends AddTabTabbedPane {
 		super("Generate Next Round");
 	}
 
+	public void addSwissTab(int roundNumber, JFXPanel roundPanel) {
+		setVisible(true);
+		while (this.getTabCount() > roundNumber) {
+			this.remove(roundNumber - 2);
+		}
+
+		this.addTab("Round " + roundNumber, roundPanel);
+
+		this.validate();
+		this.repaint();
+	}
 	public void addSwissTab(int roundNumber, JPanel roundPanel) {
 		setVisible(true);
 		while (this.getTabCount() > roundNumber) {
@@ -24,6 +36,14 @@ public class RoundTabbedPane extends AddTabTabbedPane {
 		this.repaint();
 	}
 
+	public void addSingleEliminationTab(int numberOfPlayers, JFXPanel roundPanel) {
+		setVisible(true);
+
+		this.addTab("Top " + numberOfPlayers, roundPanel);
+
+		this.validate();
+		this.repaint();
+	}
 	public void addSingleEliminationTab(int numberOfPlayers, JPanel roundPanel) {
 		setVisible(true);
 
