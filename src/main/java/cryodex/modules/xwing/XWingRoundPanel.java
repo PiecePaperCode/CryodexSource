@@ -183,7 +183,6 @@ public class XWingRoundPanel {
 			default:
 				break;
 			}
-			tournament.getTournamentGUI().getRankingTable().resetPlayers();
 
 		}
 
@@ -198,7 +197,6 @@ public class XWingRoundPanel {
 							points = Integer.valueOf(player1KillPoints.getText());
 						} catch (Exception ignored) {}
 						match.setPlayer1PointsDestroyed(points);
-						tournament.getTournamentGUI().getRankingTable().resetPlayers();
 						setResultsCombo();
 					}
 				);
@@ -218,7 +216,6 @@ public class XWingRoundPanel {
 								points = Integer.valueOf(player2KillPoints.getText());
 							} catch (Exception ignored) {}
 							match.setPlayer1PointsDestroyed(points);
-							tournament.getTournamentGUI().getRankingTable().resetPlayers();
 							setResultsCombo();
 						}
 					);

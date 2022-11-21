@@ -5,8 +5,11 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 
+import cryodex.components.Bootstrap;
 import cryodex.modules.TournamentGUI;
+import cryodex.widget.JFXSwingPanel;
 import cryodex.widget.RoundTabbedPane;
+import javafx.embed.swing.JFXPanel;
 
 public class XWingTournamentGUI implements TournamentGUI {
 
@@ -14,7 +17,7 @@ public class XWingTournamentGUI implements TournamentGUI {
 	private XWingRankingTable rankingTable;
 	private JSplitPane tmentSplitter;
 	private JPanel roundPane;
-	private JPanel rankingPane;
+	private JFXPanel rankingPane;
 	private JPanel display;
 	private final XWingTournament tournament;
 
@@ -55,10 +58,11 @@ public class XWingTournamentGUI implements TournamentGUI {
 		return roundPane;
 	}
 
-	public JPanel getRankingPanel() {
+	public JFXPanel getRankingPanel() {
 		if (rankingPane == null) {
-			rankingPane = new JPanel(new BorderLayout());
-			rankingPane.add(getRankingTable(), BorderLayout.CENTER);
+			var root = new Bootstrap().VBox();
+			root.getChildren().add(getRankingTable().getTable());
+			rankingPane = JFXSwingPanel.create(root);
 		}
 		return rankingPane;
 	}

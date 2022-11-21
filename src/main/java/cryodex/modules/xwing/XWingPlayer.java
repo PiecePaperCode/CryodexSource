@@ -185,6 +185,28 @@ public class XWingPlayer implements Comparable<ModulePlayer>, XMLObject,
 		return score;
 	}
 
+	public int getEventScore(XWingTournament tournament) {
+		int score = 0;
+		for (XWingMatch match : getMatches(tournament)) {
+			if (match.getWinner() == this) {
+				if (match.getPlayer1PointsDestroyed() < match.getPlayer2PointsDestroyed()) {
+					score += match.getPlayer2PointsDestroyed();
+				} else {
+					score += match.getPlayer1PointsDestroyed();
+				}
+			} else if (match.isDraw()) {
+				score += match.getPlayer1PointsDestroyed();
+			} else {
+				if (match.getPlayer1PointsDestroyed() < match.getPlayer2PointsDestroyed()) {
+					score += match.getPlayer1PointsDestroyed();
+				} else {
+					score += match.getPlayer2PointsDestroyed();
+				}
+			}
+		}
+		return score;
+	}
+
 	public double getAverageScore(XWingTournament t) {
 		return getScore(t) * 1.0 / getMatches(t).size();
 	}
