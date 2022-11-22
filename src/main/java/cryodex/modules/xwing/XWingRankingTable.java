@@ -3,18 +3,18 @@ package cryodex.modules.xwing;
 import java.util.*;
 
 import cryodex.components.Bootstrap;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 public class XWingRankingTable {
-	private TableView<RankingModel> table;
 	private final XWingTournament tournament;
 	private Label title;
 	private Label statsLabel;
 	private Set<XWingPlayer> xWingPlayers;
+	private GridPane table;
 
 	public XWingRankingTable(XWingTournament tournament) {
 		ScrollPane scrollPane = new ScrollPane();
@@ -69,28 +69,48 @@ public class XWingRankingTable {
 
 	}
 
-	public TableView<RankingModel> getTable() {
+	public GridPane getTable() {
 		if (table == null) {
-			table = new TableView<>();
-			table.getColumns().add(
-				new TableColumn<RankingModel, String>("Name")
-				//new TableColumn<>("Score"),
-				//new TableColumn<>("SoS"),
-				//new TableColumn<>("Mov"),
-				//new TableColumn<>("Record"),
-				//new TableColumn<>("Byes"),
-				//new TableColumn<>("Event Points")
-			);
+			table = new GridPane();
+			table.setHgap(30);
+			table.setPrefWidth(800);
+			table.setPadding(new Insets(Bootstrap.SPACING * 2));
 		}
-		table.getItems().removeAll();
-        System.out.println(xWingPlayers);
+		table.getChildren().clear();
 		if (xWingPlayers != null) {
-            for (RankingModel rank: getRanking()) {
-                table.getItems().add(rank);
-            }
+			table.addRow(
+					0,
+					new Bootstrap().H2("Score")
+			);
+			table.addRow(
+				1,
+				new Bootstrap().H4("Name"),
+				new Bootstrap().H4("Score"),
+				new Bootstrap().H4("SoS"),
+				new Bootstrap().H4("Event Points"),
+				new Bootstrap().H4("Record"),
+				new Bootstrap().H4("Byes")
+			);
+			int i = 2;
+			for (RankingModel player: getRanking()) {
+				table.addRow(
+					i,
+					new Bootstrap().H5(player.getName()),
+					new Bootstrap().H5(player.getScore()),
+					new Bootstrap().H5(player.getSoS()),
+					new Bootstrap().H5(player.getEventPoints()),
+					new Bootstrap().H5(player.getRecord()),
+					new Bootstrap().H5(player.getByes())
+				);
+				i++;
+			}
             System.out.println(getRanking());
 		}
 		return table;
+	}
+
+	public void update() {
+		getTable();
 	}
 
 	public void setPlayers(Set<XWingPlayer> xWingPlayers) {
@@ -125,9 +145,11 @@ public class XWingRankingTable {
 			this.byes = player.getByes(tournament);
 			this.eventPoints = player.getEventScore(tournament);
 		}
-
 		public String getName() {
 			return String.valueOf(name);
+		}
+		public void setName(String name) {
+			this.name = name;
 		}
 
 		public String getScore() {
@@ -149,13 +171,9 @@ public class XWingRankingTable {
 		public String getByes() {
 			return String.valueOf(byes);
 		}
-
 		public String getEventPoints() {
 			return String.valueOf(eventPoints);
 		}
-        public void setName(String name) {
-            this.name = name;
-        }
         public String toString() {
             return name;
         }
@@ -165,13 +183,17 @@ public class XWingRankingTable {
 		@Override
 		public int compare(RankingModel o1, RankingModel o2) {
 			if (o1.score < o2.score)
-				return -1;
+				return 1;
 			if (o1.score > o2.score)
-				return 1;
-			if (o1.eventPoints < o2.eventPoints)
 				return -1;
-			if (o1.eventPoints > o2.eventPoints)
+			if (o1.soS < o2.soS)
 				return 1;
+			if (o1.soS > o2.soS)
+				return -1;
+			if (o1.eventPoints < o2.eventPoints)
+				return 1;
+			if (o1.eventPoints > o2.eventPoints)
+				return -1;
 			return new Random().nextInt(-1, 1);
 		}
 	}

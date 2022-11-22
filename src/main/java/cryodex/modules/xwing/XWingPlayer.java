@@ -171,7 +171,7 @@ public class XWingPlayer implements Comparable<ModulePlayer>, XMLObject,
 	public int getScore(XWingTournament t) {
 		int score = 0;
 		for (XWingMatch match : getMatches(t)) {
-			if (match.getWinner() == this) {
+			if (match.getWinner() == this && !match.isDraw()) {
                 score += XWingMatch.WIN_POINTS;
             } else if (match.isDraw()) {
                 score += XWingMatch.DRAW;

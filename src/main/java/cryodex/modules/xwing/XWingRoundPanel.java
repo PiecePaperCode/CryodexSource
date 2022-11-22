@@ -183,7 +183,6 @@ public class XWingRoundPanel {
 			default:
 				break;
 			}
-            tournament.getTournamentGUI().getRankingTable().getTable();
 		}
 
 		public TextField getPlayer1KillPointsField() {
@@ -247,6 +246,8 @@ public class XWingRoundPanel {
 				getResultCombo().getSelectionModel().select(0);
 				getResultCombo().setEditable(!enterOnlyPoints);
 			}
+			comboChange();
+			tournament.getTournamentGUI().getRankingTable().update();
 		}
 
 		public void markInvalid(boolean isSingleElimination) {
