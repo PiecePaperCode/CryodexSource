@@ -37,7 +37,7 @@ public class SplashPanel {
         frame.setBounds(x, y, width, height);
         frame.setVisible(true);
         final KeyFrame kf1 = new KeyFrame(Duration.seconds(0), e -> frame.setVisible(true));
-        final KeyFrame kf2 = new KeyFrame(Duration.seconds(3), e -> frame.setVisible(false));
+        final KeyFrame kf2 = new KeyFrame(Duration.seconds(1), e -> frame.setVisible(false));
         final Timeline timeline = new Timeline(kf1, kf2);
         try {
             fxPanel.setScene(createScene());

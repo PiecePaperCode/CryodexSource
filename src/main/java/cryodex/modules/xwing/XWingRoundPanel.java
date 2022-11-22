@@ -80,7 +80,11 @@ public class XWingRoundPanel {
 		private void init() {
             if (match.getPlayer2() == null ) {
                 getPlayerTitle().setText(String.format("%s vs BYE", match.getPlayer1().getName()));
+				getPlayer1KillLabel().setText(match.getPlayer1().getName());
             } else {
+				getPlayer1KillLabel().setText(match.getPlayer1().getName());
+				getPlayer2KillLabel().setText(match.getPlayer2().getName());
+				getResultCombo().getSelectionModel().select(0);
                 getPlayerTitle().setText(String.format("%s vs %s", match.getPlayer1().getName(), match.getPlayer2().getName()));
             }
             if (match.isMatchComplete()) {
@@ -96,11 +100,9 @@ public class XWingRoundPanel {
 			}
 			if (match.getPlayer2() != null) {
 				if (match.getPlayer1PointsDestroyed() != null) {
-                    getPlayer1KillLabel().setText(match.getPlayer1().getName());
                     getPlayer1KillPointsField().setText(String.valueOf(match.getPlayer1PointsDestroyed()));
 				}
 				if (match.getPlayer2PointsDestroyed() != null) {
-                    getPlayer2KillLabel().setText(match.getPlayer2().getName());
                     getPlayer2KillPointsField().setText(String.valueOf(match.getPlayer2PointsDestroyed()));
 				}
 			}
@@ -213,7 +215,7 @@ public class XWingRoundPanel {
 							try {
 								points = Integer.valueOf(player2KillPoints.getText());
 							} catch (Exception ignored) {}
-							match.setPlayer1PointsDestroyed(points);
+							match.setPlayer2PointsDestroyed(points);
 							setResultsCombo();
 						}
 					);
@@ -229,12 +231,6 @@ public class XWingRoundPanel {
 			if (match.getPlayer1PointsDestroyed() != null || match.getPlayer2PointsDestroyed() != null) {
 				Integer p1points = match.getPlayer1PointsDestroyed() == null ? 0 : match.getPlayer1PointsDestroyed();
 				Integer p2points = match.getPlayer2PointsDestroyed() == null ? 0 : match.getPlayer2PointsDestroyed();
-				if (p1points.equals(p2points)) {
-					if (!getResultCombo().isEditable()) {
-						getResultCombo().getSelectionModel().select(0);
-					}
-					getResultCombo().setEditable(true);
-				}
 				if (p1points > p2points) {
 					getResultCombo().getSelectionModel().select(1);
 					getResultCombo().setEditable(!enterOnlyPoints);
@@ -251,7 +247,6 @@ public class XWingRoundPanel {
 				getResultCombo().getSelectionModel().select(0);
 				getResultCombo().setEditable(!enterOnlyPoints);
 			}
-			comboChange();
 		}
 
 		public void markInvalid(boolean isSingleElimination) {

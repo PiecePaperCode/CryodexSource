@@ -113,7 +113,7 @@ public class XWingRankingTable {
 		double mov;
 		String record;
 		int byes;
-		int eventScore;
+		int eventPoints;
 		public RankingModel(XWingPlayer player) {
 			this.name = player.getName();
 			this.score = player.getScore(tournament);
@@ -123,11 +123,36 @@ public class XWingRankingTable {
 				+ player.getLosses(tournament) + " / "
 				+ player.getDraws(tournament);
 			this.byes = player.getByes(tournament);
-			this.eventScore = player.getEventScore(tournament);
+			this.eventPoints = player.getEventScore(tournament);
 		}
-        public String getName() {
-            return name;
-        }
+
+		public String getName() {
+			return String.valueOf(name);
+		}
+
+		public String getScore() {
+			return String.valueOf(score);
+		}
+
+		public String getSoS() {
+			return String.valueOf(soS);
+		}
+
+		public String getMov() {
+			return String.valueOf(mov);
+		}
+
+		public String getRecord() {
+			return String.valueOf(record);
+		}
+
+		public String getByes() {
+			return String.valueOf(byes);
+		}
+
+		public String getEventPoints() {
+			return String.valueOf(eventPoints);
+		}
         public void setName(String name) {
             this.name = name;
         }
@@ -143,9 +168,9 @@ public class XWingRankingTable {
 				return -1;
 			if (o1.score > o2.score)
 				return 1;
-			if (o1.eventScore < o2.eventScore)
+			if (o1.eventPoints < o2.eventPoints)
 				return -1;
-			if (o1.eventScore > o2.eventScore)
+			if (o1.eventPoints > o2.eventPoints)
 				return 1;
 			return new Random().nextInt(-1, 1);
 		}
