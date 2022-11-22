@@ -72,19 +72,23 @@ public class XWingRankingTable {
 	public TableView<RankingModel> getTable() {
 		if (table == null) {
 			table = new TableView<>();
-			table.getColumns().addAll(
-				new TableColumn<>("Name"),
-				new TableColumn<>("Score"),
-				new TableColumn<>("SoS"),
-				new TableColumn<>("Mov"),
-				new TableColumn<>("Record"),
-				new TableColumn<>("Byes"),
-				new TableColumn<>("Event Points")
+			table.getColumns().add(
+				new TableColumn<RankingModel, String>("Name")
+				//new TableColumn<>("Score"),
+				//new TableColumn<>("SoS"),
+				//new TableColumn<>("Mov"),
+				//new TableColumn<>("Record"),
+				//new TableColumn<>("Byes"),
+				//new TableColumn<>("Event Points")
 			);
 		}
 		table.getItems().removeAll();
+        System.out.println(xWingPlayers);
 		if (xWingPlayers != null) {
-			table.getItems().addAll(getRanking());
+            for (RankingModel rank: getRanking()) {
+                table.getItems().add(rank);
+            }
+            System.out.println(getRanking());
 		}
 		return table;
 	}
@@ -121,7 +125,16 @@ public class XWingRankingTable {
 			this.byes = player.getByes(tournament);
 			this.eventScore = player.getEventScore(tournament);
 		}
-	}
+        public String getName() {
+            return name;
+        }
+        public void setName(String name) {
+            this.name = name;
+        }
+        public String toString() {
+            return name;
+        }
+    }
 
 	class RankingComparator implements Comparator<RankingModel> {
 		@Override

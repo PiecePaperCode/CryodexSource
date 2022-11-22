@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cryodex.components.Bootstrap;
+import cryodex.modules.Tournament;
 import cryodex.widget.JFXSwingPanel;
 import javafx.embed.swing.JFXPanel;
 import javafx.geometry.Insets;
@@ -18,10 +19,11 @@ public class XWingRoundPanel {
 	private final List<XWingMatch> matches;
 	private final List<GamePanel> gamePanels = new ArrayList<>();
     private final JFXPanel panel;
+    private final XWingTournament tournament;
 
 	public XWingRoundPanel(XWingTournament t, List<XWingMatch> matches) {
         this.matches = matches;
-
+        this.tournament = t;
 		int counter = 1;
 		for (XWingMatch match : matches) {
 			GamePanel gpanel = new GamePanel(match);
@@ -179,7 +181,7 @@ public class XWingRoundPanel {
 			default:
 				break;
 			}
-
+            tournament.getTournamentGUI().getRankingTable().getTable();
 		}
 
 		public TextField getPlayer1KillPointsField() {
