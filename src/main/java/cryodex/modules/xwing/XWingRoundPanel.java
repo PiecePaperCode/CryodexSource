@@ -3,7 +3,6 @@ package cryodex.modules.xwing;
 import java.util.ArrayList;
 import java.util.List;
 
-import cryodex.CryodexController;
 import cryodex.components.Bootstrap;
 import cryodex.widget.JFXSwingPanel;
 import javafx.embed.swing.JFXPanel;
@@ -18,16 +17,14 @@ import javafx.scene.paint.Color;
 public class XWingRoundPanel {
 	private final List<XWingMatch> matches;
 	private final List<GamePanel> gamePanels = new ArrayList<>();
-	private final XWingTournament tournament;
-	private final JFXPanel panel;
+    private final JFXPanel panel;
 
 	public XWingRoundPanel(XWingTournament t, List<XWingMatch> matches) {
-		this.tournament = t;
-		this.matches = matches;
+        this.matches = matches;
 
 		int counter = 1;
 		for (XWingMatch match : matches) {
-			GamePanel gpanel = new GamePanel(counter, match);
+			GamePanel gpanel = new GamePanel(match);
 			gamePanels.add(gpanel);
 			counter++;
 		}
@@ -72,18 +69,19 @@ public class XWingRoundPanel {
 		private TextField player2KillPoints;
 		private Label player1KillLabel;
 		private Label player2KillLabel;
-		private boolean isLoading;
-		private final int tableNumber;
 
-		public GamePanel(int tableNumber, XWingMatch match) {
-			this.tableNumber = tableNumber;
-			this.match = match;
-			isLoading = true;
+        public GamePanel(XWingMatch match) {
+            this.match = match;
 			init();
 		}
 
 		private void init() {
-			if (match.isMatchComplete()) {
+            if (match.getPlayer2() == null ) {
+                getPlayerTitle().setText(String.format("%s vs BYE", match.getPlayer1().getName()));
+            } else {
+                getPlayerTitle().setText(String.format("%s vs %s", match.getPlayer1().getName(), match.getPlayer2().getName()));
+            }
+            if (match.isMatchComplete()) {
 				if (match.isBye()) {
 					getResultCombo().getSelectionModel().select(1);
 				} else {
@@ -96,13 +94,14 @@ public class XWingRoundPanel {
 			}
 			if (match.getPlayer2() != null) {
 				if (match.getPlayer1PointsDestroyed() != null) {
-					getPlayer1KillPointsField().setText(String.valueOf(match.getPlayer1PointsDestroyed()));
+                    getPlayer1KillLabel().setText(match.getPlayer1().getName());
+                    getPlayer1KillPointsField().setText(String.valueOf(match.getPlayer1PointsDestroyed()));
 				}
 				if (match.getPlayer2PointsDestroyed() != null) {
-					getPlayer2KillPointsField().setText(String.valueOf(match.getPlayer2PointsDestroyed()));
+                    getPlayer2KillLabel().setText(match.getPlayer2().getName());
+                    getPlayer2KillPointsField().setText(String.valueOf(match.getPlayer2PointsDestroyed()));
 				}
 			}
-			isLoading = false;
 		}
 
 		private XWingMatch getMatch() {
@@ -111,7 +110,7 @@ public class XWingRoundPanel {
 
 		private Label getPlayerTitle() {
 			if (playersTitle == null) {
-				playersTitle = new Bootstrap().H5("");
+				playersTitle = new Bootstrap().H3("");
 			}
 			return playersTitle;
 		}
@@ -159,9 +158,6 @@ public class XWingRoundPanel {
 		}
 
 		private void comboChange() {
-			if (isLoading) {
-				return;
-			}
 			switch (resultsCombo.getSelectionModel().getSelectedIndex()) {
 			case 0:
 				match.setWinner(null);

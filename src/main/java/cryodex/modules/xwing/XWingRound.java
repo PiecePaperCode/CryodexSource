@@ -23,7 +23,7 @@ public class XWingRound implements XMLObject {
 		Element matchElement = roundElement.getChild("MATCHES");
 
 		if (matchElement != null) {
-			matches = new ArrayList<XWingMatch>();
+			matches = new ArrayList<>();
 			for (Element e : matchElement.getChildren()) {
 				matches.add(new XWingMatch(e));
 			}
