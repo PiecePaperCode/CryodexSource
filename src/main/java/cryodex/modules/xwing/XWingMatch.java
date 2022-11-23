@@ -199,6 +199,9 @@ public class XWingMatch implements XMLObject {
     }
 
     public void setDraw(boolean b) {
+		if (!b) {
+			this.winner = null;
+		}
         isDraw = b;
     }
 
