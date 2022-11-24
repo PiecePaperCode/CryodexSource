@@ -14,6 +14,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import org.w3c.dom.Text;
 
 public class XWingRoundPanel {
 	private final List<XWingMatch> matches;

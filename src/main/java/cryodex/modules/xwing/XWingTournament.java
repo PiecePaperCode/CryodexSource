@@ -462,7 +462,7 @@ public class XWingTournament implements XMLObject, Tournament {
 
 			matches = getMatches(getXWingPlayers());
 		}
-		XWingRound r = new XWingRound(matches, this, roundNumber);
+		XWingRound r = new XWingRound(matches, this);
 		rounds.add(r);
 		if (roundNumber == 1
 				&& startAsSingleElimination
@@ -597,7 +597,7 @@ public class XWingTournament implements XMLObject, Tournament {
 			}
 		}
 
-		XWingRound r = new XWingRound(matchesCorrected, this, null);
+		XWingRound r = new XWingRound(matchesCorrected, this);
 		r.setSingleElimination(true);
 		rounds.add(r);
 		getTournamentGUI().getRoundTabbedPane().addSingleEliminationTab(

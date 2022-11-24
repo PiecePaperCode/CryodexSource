@@ -1,15 +1,11 @@
 package cryodex.modules.xwing;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-
 import cryodex.xml.XMLObject;
 import cryodex.xml.XMLUtils;
 import cryodex.xml.XMLUtils.Element;
 import javafx.embed.swing.JFXPanel;
-
-import javax.swing.*;
 
 public class XWingRound implements XMLObject {
 	private List<XWingMatch> matches;
@@ -32,8 +28,7 @@ public class XWingRound implements XMLObject {
 		this.panel = new XWingRoundPanel(t, matches);
 	}
 
-	public XWingRound(List<XWingMatch> matches, XWingTournament t,
-			Integer roundNumber) {
+	public XWingRound(List<XWingMatch> matches, XWingTournament t) {
 		this.matches = matches;
 		this.panel = new XWingRoundPanel(t, matches);
 	}
@@ -59,7 +54,7 @@ public class XWingRound implements XMLObject {
 	}
 
 	public boolean isSingleElimination() {
-		return isSingleElimination == null ? false : isSingleElimination;
+		return isSingleElimination != null && isSingleElimination;
 	}
 
 	@Override
@@ -73,7 +68,7 @@ public class XWingRound implements XMLObject {
 
 	public boolean isComplete() {
 		for (XWingMatch m : getMatches()) {
-			if (m.isMatchComplete() == false) {
+			if (!m.isMatchComplete()) {
 				return false;
 			}
 		}
@@ -83,7 +78,7 @@ public class XWingRound implements XMLObject {
 	public boolean isValid(boolean isSingleElimination) {
 		boolean result = true;
 		for (XWingMatch m : getMatches()) {
-			if (m.isValidResult(isSingleElimination) == false) {
+			if (!m.isValidResult(isSingleElimination)) {
 				result = false;
 				break;
 			}

@@ -253,8 +253,8 @@ public class XWingSwapPanel extends JPanel {
 						}
 					}
 
-					XWingRound r = new XWingRound(matches, tournament,
-							roundNumber);
+					XWingRound r = new XWingRound(matches, tournament
+                    );
 					r.setSingleElimination(isSingleElimination);
 
 					tournament.getAllRounds().add(r);
