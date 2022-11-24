@@ -151,6 +151,7 @@ public class RegisterPanel {
 							player = new Player();
 							CryodexController.getPlayers().add(player);
 							getUserModel().getItems().add(player);
+							getUserModel().refresh();
 
 						} else {
 							player = getPlayerList()
@@ -198,6 +199,7 @@ public class RegisterPanel {
 							.getSelectionModel()
 							.getSelectedItem()
 					);
+					getUserModel().refresh();
 
 					clearFields();
 					CryodexController.saveData();
@@ -241,6 +243,7 @@ public class RegisterPanel {
 	public void addPlayers(List<Player> players) {
 		for (Player p : players) {
 			getUserModel().getItems().add(p);
+			getUserModel().refresh();
 		}
 	}
 
@@ -289,6 +292,7 @@ public class RegisterPanel {
 			.getChildrenUnmodifiable()
 			.size()
 		);
+		getUserModel().refresh();
 	}
 
 	public Label getCounterLabel() {

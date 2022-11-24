@@ -63,7 +63,6 @@ public class XWingRegistrationPanel implements RegistrationPanel {
 		return firstRoundByeCheckbox;
 	}
 
-	@Override
 	public void save(Player player) {
 
 		XWingPlayer xp = null;
