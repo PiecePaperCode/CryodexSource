@@ -145,7 +145,7 @@ public class ArmadaTournament implements XMLObject, Tournament {
 			return null;
 		} else {
 			return getAllRounds().get(
-					getTournamentGUI().getRoundTabbedPane().getSelectedIndex());
+					getTournamentGUI().getRoundTabbedPane().getTabPane().getSelectionModel().getSelectedIndex());
 		}
 	}
 
@@ -308,7 +308,7 @@ public class ArmadaTournament implements XMLObject, Tournament {
 				}
 				rounds.remove(roundToRemove);
 
-				getTournamentGUI().getRoundTabbedPane().remove(index);
+				getTournamentGUI().getRoundTabbedPane().getTabPane().getTabs().remove(index);
 			}
 		}
 	}

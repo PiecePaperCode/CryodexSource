@@ -2,11 +2,14 @@ package cryodex.modules.imperialassault;
 
 import java.awt.BorderLayout;
 
-import javax.swing.JPanel;
-import javax.swing.JSplitPane;
+import javax.swing.*;
 
+import cryodex.components.Bootstrap;
 import cryodex.modules.TournamentGUI;
+import cryodex.widget.JFXSwingPanel;
 import cryodex.widget.RoundTabbedPane;
+import javafx.embed.swing.JFXPanel;
+import javafx.embed.swing.SwingNode;
 
 public class IATournamentGUI implements TournamentGUI {
 
@@ -38,6 +41,13 @@ public class IATournamentGUI implements TournamentGUI {
 		return roundTabbedPane;
 	}
 
+	public JFXPanel getJRoundTabbedPane() {
+		if (roundTabbedPane == null) {
+			roundTabbedPane = new RoundTabbedPane();
+		}
+		return JFXSwingPanel.create(roundTabbedPane.getTabPane());
+	}
+
 	public JSplitPane getTmentSplitter() {
 		if (tmentSplitter == null) {
 			tmentSplitter = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
@@ -50,7 +60,7 @@ public class IATournamentGUI implements TournamentGUI {
 	public JPanel getRoundPanel() {
 		if (roundPane == null) {
 			roundPane = new JPanel(new BorderLayout());
-			roundPane.add(getRoundTabbedPane(), BorderLayout.CENTER);
+			roundPane.add(getJRoundTabbedPane(), BorderLayout.CENTER);
 		}
 		return roundPane;
 	}

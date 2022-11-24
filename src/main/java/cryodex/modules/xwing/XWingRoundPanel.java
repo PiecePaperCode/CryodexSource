@@ -8,6 +8,7 @@ import cryodex.modules.Tournament;
 import cryodex.widget.JFXSwingPanel;
 import javafx.embed.swing.JFXPanel;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -19,7 +20,7 @@ import org.w3c.dom.Text;
 public class XWingRoundPanel {
 	private final List<XWingMatch> matches;
 	private final List<GamePanel> gamePanels = new ArrayList<>();
-    private final JFXPanel panel;
+    private final Node panel;
     private final XWingTournament tournament;
 
 	public XWingRoundPanel(XWingTournament t, List<XWingMatch> matches) {
@@ -35,10 +36,10 @@ public class XWingRoundPanel {
 		ScrollPane scroll = new ScrollPane(buildPanel());
 		
 		var root = new Bootstrap().VBox(scroll);
-		panel = JFXSwingPanel.create(root);
+		panel = root;
 	}
 
-	public JFXPanel getPanel() {
+	public Node getPanel() {
 		return this.panel;
 	}
 

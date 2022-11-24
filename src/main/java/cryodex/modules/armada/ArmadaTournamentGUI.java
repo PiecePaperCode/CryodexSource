@@ -50,7 +50,7 @@ public class ArmadaTournamentGUI implements TournamentGUI {
 	public JPanel getRoundPanel() {
 		if (roundPane == null) {
 			roundPane = new JPanel(new BorderLayout());
-			roundPane.add(getRoundTabbedPane(), BorderLayout.CENTER);
+			// roundPane.add(getRoundTabbedPane(), BorderLayout.CENTER);
 		}
 		return roundPane;
 	}

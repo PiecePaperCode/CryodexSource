@@ -74,7 +74,7 @@ public class XWingTournament implements XMLObject, Tournament {
 				.getStringFromChild("ESCALATIONPOINTS");
 
 		if (escalationPointsString != null
-				&& escalationPointsString.isEmpty() == false) {
+				&& !escalationPointsString.isEmpty()) {
 			escalationPoints = new ArrayList<Integer>();
 			for (String s : escalationPointsString.split(",")) {
 				escalationPoints.add(new Integer(s));
@@ -145,7 +145,7 @@ public class XWingTournament implements XMLObject, Tournament {
 			return null;
 		} else {
 			return getAllRounds().get(
-					getTournamentGUI().getRoundTabbedPane().getSelectedIndex());
+					getTournamentGUI().getRoundTabbedPane().getTabPane().getSelectionModel().getSelectedIndex());
 		}
 	}
 
@@ -336,7 +336,7 @@ public class XWingTournament implements XMLObject, Tournament {
 				}
 				rounds.remove(roundToRemove);
 
-				getTournamentGUI().getRoundTabbedPane().remove(index);
+				getTournamentGUI().getRoundTabbedPane().getTabPane().getTabs().remove(index);
 			}
 		}
 	}

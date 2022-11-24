@@ -212,7 +212,7 @@ public class ArmadaMenu implements Menu {
 							.getActiveTournament();
 
 					int index = tournament.getTournamentGUI()
-							.getRoundTabbedPane().getSelectedIndex();
+							.getRoundTabbedPane().getTabPane().getSelectionModel().getSelectedIndex();
 
 					int result = JOptionPane.showConfirmDialog(
 							Main.getInstance(),
@@ -229,10 +229,6 @@ public class ArmadaMenu implements Menu {
 							tournament.generateRound(index + 1);
 						}
 
-						tournament.getTournamentGUI().getRoundTabbedPane()
-								.validate();
-						tournament.getTournamentGUI().getRoundTabbedPane()
-								.repaint();
 					}
 
 				}
@@ -248,7 +244,7 @@ public class ArmadaMenu implements Menu {
 							.getActiveTournament();
 
 					int index = tournament.getTournamentGUI()
-							.getRoundTabbedPane().getSelectedIndex();
+							.getRoundTabbedPane().getTabPane().getSelectionModel().getSelectedIndex();
 
 					if (index == 0) {
 						CryodexController.deleteTournament(true);
@@ -262,8 +258,8 @@ public class ArmadaMenu implements Menu {
 					if (result == JOptionPane.OK_OPTION) {
 						tournament.cancelRound(index + 1);
 
-						tournament.getTournamentGUI().getRoundTabbedPane()
-								.setSelectedIndex(index - 1);
+						tournament.getTournamentGUI().getRoundTabbedPane().getTabPane().getSelectionModel()
+								.select(index - 1);
 
 						CryodexController.saveData();
 

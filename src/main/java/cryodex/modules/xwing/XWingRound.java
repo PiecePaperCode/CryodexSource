@@ -6,6 +6,7 @@ import cryodex.xml.XMLObject;
 import cryodex.xml.XMLUtils;
 import cryodex.xml.XMLUtils.Element;
 import javafx.embed.swing.JFXPanel;
+import javafx.scene.Node;
 
 public class XWingRound implements XMLObject {
 	private List<XWingMatch> matches;
@@ -41,7 +42,7 @@ public class XWingRound implements XMLObject {
 		this.matches = matches;
 	}
 
-	public JFXPanel getPanel() {
+	public Node getPanel() {
 		return panel.getPanel();
 	}
 
